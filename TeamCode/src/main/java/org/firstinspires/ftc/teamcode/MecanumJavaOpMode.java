@@ -47,7 +47,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
             LX = this.gamepad1.left_stick_x;
             LY = this.gamepad1.left_stick_y;
             RX = this.gamepad1.right_stick_x;
-            RY = this.gamepad1.right_stick_y;
+            RY = -this.gamepad1.right_stick_y; // opposite what you think
             pwr = Math.sqrt(RX*RX + RY*RY);
             pwrpivot = Math.sqrt(LX*LX + LY*LY);
 
@@ -63,45 +63,71 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 motorR1.setPower(0);
                 motorR2.setPower(0);
                 telemetry.addData("Direction: ", "No Move");
-
             }
+            //forward and back
             else if (RX == 0 && RY != 0) {
-                if(RY<0){
-                    pwr=-1*pwr;
+
+                if(RY>0){
+                    telemetry.addData("Direction: ", "Forward");
+                }else {
+                    telemetry.addData("Direction: ", "Backward");
                 }
+
                 motorL1.setPower(pwr);
                 motorL2.setPower(pwr);
                 motorR1.setPower(-1*pwr); //negative because it's on the right side
                 motorR2.setPower(-1*pwr); //negative because it's on the right side
-                telemetry.addData("Direction: ", "Straight");
+
+            }
+            //sideways (STRAFE)
+            else if (RY == 0 && RX != 0) {
 
 
-                //foreward and back
-            } else if (RY == 0 && RX != 0) {
                 if (RX<0){
                     pwr=-1*pwr;
-                }
-                motorL1.setPower(pwr);
-                motorL2.setPower(-1*pwr); //negative because it's on the left side
-                motorR1.setPower(pwr);
-                motorR2.setPower(-1*pwr); //negative because it's on the left side
-                telemetry.addData("Direction: ", "Strafe");
+                    telemetry.addData("Direction: ", "Strafe Left");
 
-                //sideways
-            } else if ((RX>0 && RY >0) || (RX <0 && RY < 0)) {
+                } else {
+                    telemetry.addData("Direction: ", "Strafe Right");
+                }
+
+                motorL1.setPower(pwr);
+                motorL2.setPower(-pwr);
+                motorR1.setPower(pwr);
+                motorR2.setPower(-pwr);
+
+
+                //diagonal up right
+            } else if ((RX < 0 && RY < 0) || (RX > 0 && RY > 0)) {
+
+                telemetry.addData("Direction: ", "Diagonal Right");
+
+                // opposite, switch power
+                if(RX < 0 && RY < 0)
+                    pwr = -pwr;
+
+                motorL1.setPower(pwr);
+                motorL2.setPower(0);
+                motorR1.setPower(0);
+                motorR2.setPower(-pwr);
+                /*
                 motorL1.setPower(-1*pwr);
                 motorL2.setPower(0);
                 motorR1.setPower(0);
                 motorR2.setPower(-1*pwr);  //negative because it's on the left side
-                telemetry.addData("Direction: ", "Diagonal");
+                */
 
-                //diagonal up right
             } else {
+                telemetry.addData("Direction: ", "Diagonal Left");
+
+                // opposite, switch power
+                if(RX > 0 && RY < 0)
+                    pwr = -pwr;
+
                 motorL1.setPower(0);
                 motorL2.setPower(pwr); //negative because it's on the left side
                 motorR1.setPower(-1*pwr);
                 motorR2.setPower(0);
-                telemetry.addData("Direction: ", "Diagonal");
 
                 //diagonal up left
             }
