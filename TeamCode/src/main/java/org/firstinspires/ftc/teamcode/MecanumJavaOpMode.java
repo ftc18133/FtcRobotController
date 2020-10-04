@@ -70,6 +70,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 if(RY>0){
                     telemetry.addData("Direction: ", "Forward");
                 }else {
+                    pwr=-1*pwr;
                     telemetry.addData("Direction: ", "Backward");
                 }
 
