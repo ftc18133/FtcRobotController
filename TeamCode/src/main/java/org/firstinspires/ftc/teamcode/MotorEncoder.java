@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -13,7 +14,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @TeleOp
 public class MotorEncoder extends LinearOpMode {
 
-    public static double MAX_VELOCITY = 2920;
+    public static double PI_MULTIPLE = 0.1;
+    public static double F_CONSTANT = 32767;
+    public static double D_CONSTANT = 0;
+
+    public static double MAX_VELOCITY = 3060;
 
     private DcMotorEx motorL1;
     private DcMotorEx motorL2;
@@ -29,9 +34,11 @@ public class MotorEncoder extends LinearOpMode {
         initMotor(motorL2);
 
         motorR1 = hardwareMap.get(DcMotorEx.class, "motorR1");
+        motorR1.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR1);
 
         motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
+        motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR2);
 
         telemetry.addData("Status", "Initialized");
@@ -64,24 +71,19 @@ public class MotorEncoder extends LinearOpMode {
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         /*
-        Your F value is calculated like this: F = 32767 / maxV (or 2920).
-
-        So if your max velocity is 2920 ticks per second (reasonable for a mechanism that uses the HD Hex Motor), then your F value should be about 11.2.
+        Your F value is calculated like this: F = 32767 / MAX_VELOCITY.
 
         Then your P value is calculated from your F value: P = 0.1 * F
 
         Then your I value is calculated from your P value: I = 0.1 * P
 
         Your D value should be zero.
-
-        So for a maximum velocity of 2920 ticks per second, your velocity PIDF values are:
-        P = 1.12
-        I = 0.112
-        D = 0
-        F = 11.2
          */
+        double fValue  = F_CONSTANT / MAX_VELOCITY;
+        double pValue = PI_MULTIPLE * fValue;
+        double iValue = PI_MULTIPLE * pValue;
 
-        motor.setVelocityPIDFCoefficients(1.12, 0.112, 0, 11.2);
+        motor.setVelocityPIDFCoefficients(pValue, iValue, D_CONSTANT, fValue);
         motor.setPositionPIDFCoefficients(5.0);
     }
 }

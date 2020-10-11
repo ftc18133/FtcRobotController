@@ -33,14 +33,12 @@ public class MecanumJavaOpMode extends LinearOpMode {
         waitForStart();
         // run until the end of the match (driver presses STOP)
 
-        double tgtPower = 0;
         double LX = 0;
         double LY = 0;
         double RX = 0;
         double RY = 0;
         double pwr = 0;
         double velocity = 0;
-        //double pwrpivot = 0;
 
         while (opModeIsActive()) {
             LX = this.gamepad1.left_stick_x;
