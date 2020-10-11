@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -17,6 +13,7 @@ public class MotorEncoder extends LinearOpMode {
     public static double PI_MULTIPLE = 0.1;
     public static double F_CONSTANT = 32767;
     public static double D_CONSTANT = 0;
+    public static double POSITION_CONSTANT = 5.0;
 
     public static double MAX_VELOCITY = 3060;
 
@@ -79,11 +76,11 @@ public class MotorEncoder extends LinearOpMode {
 
         Your D value should be zero.
          */
-        double fValue  = F_CONSTANT / MAX_VELOCITY;
+        double fValue = F_CONSTANT / MAX_VELOCITY;
         double pValue = PI_MULTIPLE * fValue;
         double iValue = PI_MULTIPLE * pValue;
 
         motor.setVelocityPIDFCoefficients(pValue, iValue, D_CONSTANT, fValue);
-        motor.setPositionPIDFCoefficients(5.0);
+        motor.setPositionPIDFCoefficients(POSITION_CONSTANT);
     }
 }
