@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+public class CyberCatBot {
 
-@TeleOp
-public class MotorEncoder extends LinearOpMode {
+    // CONSTANTS ***********************************************************************************
 
     public static double PI_MULTIPLE = 0.1;
     public static double F_CONSTANT = 32767;
@@ -17,13 +16,61 @@ public class MotorEncoder extends LinearOpMode {
 
     public static double MAX_VELOCITY = 3060;
 
+    // PROPERTIES **********************************************************************************
+
     private DcMotorEx motorL1;
     private DcMotorEx motorL2;
     private DcMotorEx motorR1;
     private DcMotorEx motorR2;
 
-    @Override
-    public void runOpMode() {
+    private HardwareMap hardwareMap;
+
+    // METHODS *************************************************************************************
+
+    public CyberCatBot(HardwareMap hardwareMap) {
+        this.hardwareMap = hardwareMap;
+        init();
+    }
+
+    public DcMotorEx getMotorL1()
+    {
+        return motorL1;
+    }
+
+    public DcMotorEx getMotorL2()
+    {
+        return motorL2;
+    }
+
+    public DcMotorEx getMotorR1()
+    {
+        return motorR1;
+    }
+
+    public DcMotorEx getMotorR2()
+    {
+        return motorR2;
+    }
+
+    public void setVelocity(double velocity)
+    {
+        motorL1.setVelocity(velocity);
+        motorL2.setVelocity(velocity);
+        motorR1.setVelocity(velocity);
+        motorR2.setVelocity(velocity);
+    }
+
+    public void setVelocity(double l1Velocity, double l2Velocity, double r1Velocity, double r2Velocity)
+    {
+        motorL1.setVelocity(l1Velocity);
+        motorL2.setVelocity(l2Velocity);
+        motorR1.setVelocity(r1Velocity);
+        motorR2.setVelocity(r2Velocity);
+    }
+
+
+    private void init()
+    {
         motorL1 = hardwareMap.get(DcMotorEx.class, "motorL1");
         initMotor(motorL1);
 
@@ -37,31 +84,9 @@ public class MotorEncoder extends LinearOpMode {
         motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
         motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR2);
-
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        // run until the end of the match (driver presses STOP)
-        motorL1.setVelocity(1000);
-        motorL2.setVelocity(1000);
-        motorR1.setVelocity(1000);
-        motorR2.setVelocity(1000);
-
-        while (opModeIsActive()) {
-            telemetry.addData("motor L1 velocity", motorL1.getVelocity());
-            telemetry.addData("motor L2 velocity", motorL2.getVelocity());
-            telemetry.addData("motor R1 velocity", motorR1.getVelocity());
-            telemetry.addData("motor R2 velocity", motorR2.getVelocity());
-
-            telemetry.addData("Status", "Running");
-            telemetry.update();
-        }
     }
 
-    public static void initMotor(DcMotorEx motor)
+    private void initMotor(DcMotorEx motor)
     {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -83,4 +108,5 @@ public class MotorEncoder extends LinearOpMode {
         motor.setVelocityPIDFCoefficients(pValue, iValue, D_CONSTANT, fValue);
         motor.setPositionPIDFCoefficients(POSITION_CONSTANT);
     }
+
 }

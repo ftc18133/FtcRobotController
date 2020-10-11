@@ -13,26 +13,11 @@ import java.lang.Math;
 
 @TeleOp
 public class MecanumJavaOpMode extends LinearOpMode {
-    private DcMotorEx motorL1;
-    private DcMotorEx motorL2;
-    private DcMotorEx motorR1;
-    private DcMotorEx motorR2;
+    CyberCatBot catbot;
 
     @Override
     public void runOpMode() {
-        motorL1 = hardwareMap.get(DcMotorEx.class, "motorL1");
-        MotorEncoder.initMotor(motorL1);
-
-        motorL2 = hardwareMap.get(DcMotorEx.class, "motorL2");
-        MotorEncoder.initMotor(motorL2);
-
-        motorR1 = hardwareMap.get(DcMotorEx.class, "motorR1");
-        MotorEncoder.initMotor(motorR1);
-        motorR1.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
-        MotorEncoder.initMotor(motorR2);
-        motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
+        catbot = new CyberCatBot(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -53,7 +38,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
             RX = this.gamepad1.right_stick_x;
             RY = -this.gamepad1.right_stick_y; // opposite what you think
             pwr = Math.sqrt(RX*RX + RY*RY);
-            velocity = pwr * MotorEncoder.MAX_VELOCITY;
+            velocity = pwr * CyberCatBot.MAX_VELOCITY;
 
             // straight: Forward, top or bottom, push towards top or bottom (gamepad analog right) speed controlled by how far you push it
             // strafe: SIDEWAYS, left or right on gamepad analog right: Same as Straight
@@ -61,10 +46,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
             // Tankturn: full body turn on center, gamepad left analog: how far you push = speed
 
             if (RX == 0 && RY ==0) {
-                motorL1.setVelocity(0);
-                motorL2.setVelocity(0);
-                motorR1.setVelocity(0);
-                motorR2.setVelocity(0);
+                catbot.setVelocity(0);
                 telemetry.addData("Direction: ", "No Move");
             }
 
@@ -77,11 +59,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                     telemetry.addData("Direction: ", "Backward");
                 }
 
-                motorL1.setVelocity(velocity);
-                motorL2.setVelocity(velocity);
-                motorR1.setVelocity(velocity);
-                motorR2.setVelocity(velocity);
-
+                catbot.setVelocity(velocity);
             }
 
             else if (RY == 0 && RX != 0) {
@@ -94,10 +72,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                     telemetry.addData("Direction: ", "Strafe Right");
                 }
 
-                motorL1.setVelocity(velocity);
-                motorL2.setVelocity(-velocity);
-                motorR1.setVelocity(-velocity);
-                motorR2.setVelocity(velocity);
+                catbot.setVelocity(velocity, -velocity, -velocity, velocity);
 
             } else if ((RX < 0 && RY < 0) || (RX > 0 && RY > 0)) {
 
@@ -107,10 +82,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 if(RX < 0 && RY < 0)
                     velocity = -velocity;
 
-                motorL1.setVelocity(velocity);
-                motorL2.setVelocity(0);
-                motorR1.setVelocity(0);
-                motorR2.setVelocity(velocity);
+                catbot.setVelocity(velocity,0,0, velocity);
 
             } else {
                 telemetry.addData("Direction: ", "Diagonal Left");
@@ -119,11 +91,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 if(RX > 0 && RY < 0)
                     velocity = -velocity;
 
-                motorL1.setVelocity(0);
-                motorL2.setVelocity(velocity);
-                motorR1.setVelocity(velocity);
-                motorR2.setVelocity(0);
-
+                catbot.setVelocity(0, velocity, velocity, 0);
             }
 
             telemetry.addData("Status", "Running");
@@ -131,11 +99,10 @@ public class MecanumJavaOpMode extends LinearOpMode {
             telemetry.addData( "RY", RY);
             telemetry.addData("Power", pwr);
 
-            // telemetry.addData("Direction Power", pwr);
-            telemetry.addData("Motor Velocity L1", motorL1.getVelocity());
-            telemetry.addData("Motor Velocity L2", motorL2.getVelocity());
-            telemetry.addData("Motor Velocity R1", motorR1.getVelocity());
-            telemetry.addData("Motor Velocity R2", motorR2.getVelocity());
+            telemetry.addData("Motor Velocity L1", catbot.getMotorL1().getVelocity());
+            telemetry.addData("Motor Velocity L2", catbot.getMotorL2().getVelocity());
+            telemetry.addData("Motor Velocity R1", catbot.getMotorR1().getVelocity());
+            telemetry.addData("Motor Velocity R2", catbot.getMotorR2().getVelocity());
 
             telemetry.update();
         }
