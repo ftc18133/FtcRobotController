@@ -1,11 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.Gyroscope;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import java.lang.Math;
@@ -16,17 +11,21 @@ import java.lang.Math;
 
 @TeleOp
 public class MecanumJavaOpMode extends LinearOpMode {
-    private DcMotor motorL1;
-    private DcMotor motorL2;
-    private DcMotor motorR1;
-    private DcMotor motorR2;
+    private DcMotorEx motorL1;
+    private DcMotorEx motorL2;
+    private DcMotorEx motorR1;
+    private DcMotorEx motorR2;
 
     @Override
     public void runOpMode() {
-        motorL1 = hardwareMap.get(DcMotor.class, "motorL1");//port: 0
-        motorL2 = hardwareMap.get(DcMotor.class, "motorL2");//port: 1
-        motorR1 = hardwareMap.get(DcMotor.class, "motorR1");//port: 2
-        motorR2 = hardwareMap.get(DcMotor.class, "motorR2");//port: 3
+        motorL1 = hardwareMap.get(DcMotorEx.class, "motorL1");
+        MotorEncoder.initMotor(motorL1);
+        motorL2 = hardwareMap.get(DcMotorEx.class, "motorL2");
+        MotorEncoder.initMotor(motorL2);
+        motorR1 = hardwareMap.get(DcMotorEx.class, "motorR1");
+        MotorEncoder.initMotor(motorR1);
+        motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
+        MotorEncoder.initMotor(motorR2);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -40,97 +39,86 @@ public class MecanumJavaOpMode extends LinearOpMode {
         double RX = 0;
         double RY = 0;
         double pwr = 0;
-        double pwrpivot = 0;
+        double velocity = 0;
+        //double pwrpivot = 0;
 
         while (opModeIsActive()) {
-            //tgtPower = -this.gamepad1.right_stick_y;
             LX = this.gamepad1.left_stick_x;
             LY = this.gamepad1.left_stick_y;
             RX = this.gamepad1.right_stick_x;
             RY = -this.gamepad1.right_stick_y; // opposite what you think
             pwr = Math.sqrt(RX*RX + RY*RY);
-            pwrpivot = Math.sqrt(LX*LX + LY*LY);
+            velocity = pwr * MotorEncoder.MAX_VELOCITY;
 
-
-            //tgtPower = -this.gamepad1.right_stick_y;
             // straight: Forward, top or bottom, push towards top or bottom (gamepad analog right) speed controlled by how far you push it
             // strafe: SIDEWAYS, left or right on gamepad analog right: Same as Straight
-            //Diagonal: Diagonal, top left, top right, bottom right, bottom left: gamepad analog right: same as straight
-            //Tankturn: full body turn on center, gamepad left analog: how far you push = speed
+            // Diagonal: Diagonal, top left, top right, bottom right, bottom left: gamepad analog right: same as straight
+            // Tankturn: full body turn on center, gamepad left analog: how far you push = speed
+
             if (RX == 0 && RY ==0) {
-                motorL1.setPower(0);
-                motorL2.setPower(0);
-                motorR1.setPower(0);
-                motorR2.setPower(0);
+                motorL1.setVelocity(0);
+                motorL2.setVelocity(0);
+                motorR1.setVelocity(0);
+                motorR2.setVelocity(0);
                 telemetry.addData("Direction: ", "No Move");
             }
-            //forward and back
+
             else if (RX == 0 && RY != 0) {
 
                 if(RY>0){
                     telemetry.addData("Direction: ", "Forward");
                 }else {
-                    pwr=-1*pwr;
+                    velocity=-velocity;
                     telemetry.addData("Direction: ", "Backward");
                 }
 
-                motorL1.setPower(pwr);
-                motorL2.setPower(pwr);
-                motorR1.setPower(-1*pwr); //negative because it's on the right side
-                motorR2.setPower(-1*pwr); //negative because it's on the right side
+                motorL1.setVelocity(velocity);
+                motorL2.setVelocity(velocity);
+                motorR1.setVelocity(-1*velocity); //negative because it's on the right side
+                motorR2.setVelocity(-1*velocity); //negative because it's on the right side
 
             }
-            //sideways (STRAFE)
+
             else if (RY == 0 && RX != 0) {
 
-
                 if (RX<0){
-                    pwr=-1*pwr;
+                    velocity=-velocity;
                     telemetry.addData("Direction: ", "Strafe Left");
 
                 } else {
                     telemetry.addData("Direction: ", "Strafe Right");
                 }
 
-                motorL1.setPower(pwr);
-                motorL2.setPower(-pwr);
-                motorR1.setPower(pwr);
-                motorR2.setPower(-pwr);
+                motorL1.setVelocity(velocity);
+                motorL2.setVelocity(-velocity);
+                motorR1.setVelocity(velocity);
+                motorR2.setVelocity(-velocity);
 
-
-                //diagonal up right
             } else if ((RX < 0 && RY < 0) || (RX > 0 && RY > 0)) {
 
                 telemetry.addData("Direction: ", "Diagonal Right");
 
                 // opposite, switch power
                 if(RX < 0 && RY < 0)
-                    pwr = -pwr;
+                    velocity = -velocity;
 
-                motorL1.setPower(pwr);
-                motorL2.setPower(0);
-                motorR1.setPower(0);
-                motorR2.setPower(-pwr);
-                /*
-                motorL1.setPower(-1*pwr);
-                motorL2.setPower(0);
-                motorR1.setPower(0);
-                motorR2.setPower(-1*pwr);  //negative because it's on the left side
-                */
+                motorL1.setVelocity(velocity);
+                motorL2.setVelocity(0);
+                motorR1.setVelocity(0);
+                motorR2.setVelocity(-velocity);
 
             } else {
                 telemetry.addData("Direction: ", "Diagonal Left");
 
                 // opposite, switch power
                 if(RX > 0 && RY < 0)
-                    pwr = -pwr;
+                    velocity = -velocity;
 
-                motorL1.setPower(0);
-                motorL2.setPower(pwr); //negative because it's on the left side
-                motorR1.setPower(-1*pwr);
-                motorR2.setPower(0);
+                motorL1.setVelocity(0);
+                motorL2.setVelocity(velocity); //negative because it's on the left side
+                motorR1.setVelocity(-velocity);
+                motorR2.setVelocity(0);
 
-                //diagonal up left
             }
 
             telemetry.addData("Status", "Running");
@@ -139,10 +127,10 @@ public class MecanumJavaOpMode extends LinearOpMode {
             telemetry.addData("Power", pwr);
 
             // telemetry.addData("Direction Power", pwr);
-            telemetry.addData("Motor Power L1", motorL1.getPower());
-            telemetry.addData("Motor Power L2", motorL2.getPower());
-            telemetry.addData("Motor Power R1", motorR1.getPower());
-            telemetry.addData("Motor Power R2", motorR2.getPower());
+            telemetry.addData("Motor Velocity L1", motorL1.getVelocity());
+            telemetry.addData("Motor Velocity L2", motorL2.getVelocity());
+            telemetry.addData("Motor Velocity R1", motorR1.getVelocity());
+            telemetry.addData("Motor Velocity R2", motorR2.getVelocity());
 
             telemetry.update();
         }

@@ -11,7 +11,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @TeleOp
-public class MotorEncoderJavaOpMode extends LinearOpMode {
+public class MotorEncoder extends LinearOpMode {
+
+    public static double MAX_VELOCITY = 2920;
+
     private DcMotorEx motorL1;
     private DcMotorEx motorL2;
     private DcMotorEx motorR1;
@@ -54,10 +57,11 @@ public class MotorEncoderJavaOpMode extends LinearOpMode {
         }
     }
 
-    private void initMotor(DcMotorEx motor)
+    public static void initMotor(DcMotorEx motor)
     {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         /*
         Your F value is calculated like this: F = 32767 / maxV (or 2920).
@@ -70,7 +74,7 @@ public class MotorEncoderJavaOpMode extends LinearOpMode {
 
         Your D value should be zero.
 
-        So for a maximum velocity of 2600 ticks per second, your velocity PIDF values are:
+        So for a maximum velocity of 2920 ticks per second, your velocity PIDF values are:
         P = 1.12
         I = 0.112
         D = 0
