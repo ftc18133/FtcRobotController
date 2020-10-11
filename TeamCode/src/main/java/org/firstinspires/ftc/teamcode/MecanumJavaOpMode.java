@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 import java.lang.Math;
 
 /**
@@ -20,12 +22,17 @@ public class MecanumJavaOpMode extends LinearOpMode {
     public void runOpMode() {
         motorL1 = hardwareMap.get(DcMotorEx.class, "motorL1");
         MotorEncoder.initMotor(motorL1);
+
         motorL2 = hardwareMap.get(DcMotorEx.class, "motorL2");
         MotorEncoder.initMotor(motorL2);
+
         motorR1 = hardwareMap.get(DcMotorEx.class, "motorR1");
         MotorEncoder.initMotor(motorR1);
+        motorR1.setDirection(DcMotorSimple.Direction.REVERSE);
+
         motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
         MotorEncoder.initMotor(motorR2);
+        motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -72,8 +79,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
 
                 motorL1.setVelocity(velocity);
                 motorL2.setVelocity(velocity);
-                motorR1.setVelocity(-1*velocity); //negative because it's on the right side
-                motorR2.setVelocity(-1*velocity); //negative because it's on the right side
+                motorR1.setVelocity(velocity);
+                motorR2.setVelocity(velocity);
 
             }
 
@@ -89,8 +96,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
 
                 motorL1.setVelocity(velocity);
                 motorL2.setVelocity(-velocity);
-                motorR1.setVelocity(velocity);
-                motorR2.setVelocity(-velocity);
+                motorR1.setVelocity(-velocity);
+                motorR2.setVelocity(velocity);
 
             } else if ((RX < 0 && RY < 0) || (RX > 0 && RY > 0)) {
 
@@ -103,7 +110,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 motorL1.setVelocity(velocity);
                 motorL2.setVelocity(0);
                 motorR1.setVelocity(0);
-                motorR2.setVelocity(-velocity);
+                motorR2.setVelocity(velocity);
 
             } else {
                 telemetry.addData("Direction: ", "Diagonal Left");
@@ -113,8 +120,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
                     velocity = -velocity;
 
                 motorL1.setVelocity(0);
-                motorL2.setVelocity(velocity); //negative because it's on the left side
-                motorR1.setVelocity(-velocity);
+                motorL2.setVelocity(velocity);
+                motorR1.setVelocity(velocity);
                 motorR2.setVelocity(0);
 
             }
