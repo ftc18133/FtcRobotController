@@ -49,6 +49,15 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 catbot.setVelocity(0);
                 telemetry.addData("Direction: ", "No Move");
             }
+            else if (RY>0 && LY<0){
+                telemetry.addData("Direction: ", "Tank Left");
+                catbot.setVelocity(-velocity, -velocity, velocity, velocity);
+            }
+
+            else if (RY<0 && LY>0){
+                telemetry.addData("Direction: ", "Tank Right");
+                catbot.setVelocity(velocity, velocity, -velocity, -velocity);
+            }
 
             else if (RX == 0 && RY != 0) {
 
@@ -97,6 +106,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
             telemetry.addData("Status", "Running");
             telemetry.addData("RX",RX);
             telemetry.addData( "RY", RY);
+            telemetry.addData( "LX", LX);
+            telemetry.addData( "LY", LY);
             telemetry.addData("Power", pwr);
 
             telemetry.addData("Motor Velocity L1", catbot.getMotorL1().getVelocity());
