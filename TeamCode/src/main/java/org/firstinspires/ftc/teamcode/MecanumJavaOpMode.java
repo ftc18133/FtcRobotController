@@ -44,8 +44,13 @@ public class MecanumJavaOpMode extends LinearOpMode {
             // strafe: SIDEWAYS, left or right on gamepad analog right: Same as Straight
             // Diagonal: Diagonal, top left, top right, bottom right, bottom left: gamepad analog right: same as straight
             // Tankturn: full body turn on center, gamepad left analog: how far you push = speed
-
-            if (RX == 0 && RY ==0) {
+            if (this.gamepad1.a==true){
+                catbot.getRingMotor().setPower(1.0);
+            }
+            else if (gamepad1.b){
+                catbot.getRingMotor().setPower(0);
+            }
+            else if (RX == 0 && RY ==0) {
                 catbot.setVelocity(0);
                 telemetry.addData("Direction: ", "No Move");
             }

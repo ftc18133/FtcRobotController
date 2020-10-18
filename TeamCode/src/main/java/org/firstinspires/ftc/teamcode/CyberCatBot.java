@@ -22,7 +22,7 @@ public class CyberCatBot {
     private DcMotorEx motorL2;
     private DcMotorEx motorR1;
     private DcMotorEx motorR2;
-
+    private DcMotorEx ringMotor;
     private HardwareMap hardwareMap;
 
     // METHODS *************************************************************************************
@@ -51,6 +51,8 @@ public class CyberCatBot {
     {
         return motorR2;
     }
+
+    public DcMotorEx getRingMotor() { return ringMotor; }
 
     public void setVelocity(double velocity)
     {
@@ -84,6 +86,10 @@ public class CyberCatBot {
         motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
         motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR2);
+
+        ringMotor = hardwareMap.get(DcMotorEx.class, "ringMotor");
+        ringMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ringMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     private void initMotor(DcMotorEx motor)
