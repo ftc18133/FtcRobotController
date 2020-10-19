@@ -86,10 +86,12 @@ public class CyberCatBot {
         motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
         motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR2);
-
+        /*
         ringMotor = hardwareMap.get(DcMotorEx.class, "ringMotor");
         ringMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ringMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+           */
     }
 
     private void initMotor(DcMotorEx motor)
