@@ -58,6 +58,21 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         catbot = new CyberCatBot(hardwareMap);
 
+        // From YouTube video: https://www.youtube.com/watch?v=H3V3A7CgwPU
+
+        // Deliver Wobble Goal to correct target zone (15 points)
+
+        // Park over launch line (5 points)
+
+        // Place ring in low goal (3 points ea.)
+
+        // Ring launched into mid goal (6 points ea.)
+
+        // Ring launched into high goal (12 points ea.)
+
+        // Knock down Power Shot Target (15 points ea.)
+
+        /*
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
@@ -79,6 +94,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
+        */
     }
 
     /*

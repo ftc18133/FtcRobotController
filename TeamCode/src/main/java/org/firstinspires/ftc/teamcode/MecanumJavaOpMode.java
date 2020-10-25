@@ -25,16 +25,12 @@ public class MecanumJavaOpMode extends LinearOpMode {
         waitForStart();
         // run until the end of the match (driver presses STOP)
 
-        double LX = 0;
-        double LY = 0;
         double RX = 0;
         double RY = 0;
         double pwr = 0;
         double velocity = 0;
 
         while (opModeIsActive()) {
-            LX = this.gamepad1.left_stick_x;
-            LY = this.gamepad1.left_stick_y;
             RX = this.gamepad1.right_stick_x;
             RY = -this.gamepad1.right_stick_y; // opposite what you think
             pwr = Math.sqrt(RX*RX + RY*RY);
@@ -44,12 +40,14 @@ public class MecanumJavaOpMode extends LinearOpMode {
             // strafe: SIDEWAYS, left or right on gamepad analog right: Same as Straight
             // Diagonal: Diagonal, top left, top right, bottom right, bottom left: gamepad analog right: same as straight
             // Tankturn: full body turn on center, gamepad left analog: how far you push = speed
-            if (this.gamepad1.a==true){
+
+            if (this.gamepad1.a){
                 catbot.getRingMotor().setPower(1.0);
             }
             else if (gamepad1.b){
                 catbot.getRingMotor().setPower(0);
             }
+
             else if (gamepad1.dpad_left){
                 telemetry.addData("Direction: ", "Tank Left");
                 catbot.setVelocity(-CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY);
@@ -58,23 +56,12 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 telemetry.addData("Direction: ", "Tank Right");
                 catbot.setVelocity(CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY);
             }
-            else if (RX == 0 && RY ==0) {
+
+            else if (RX == 0 && RY == 0) {
                 catbot.setVelocity(0);
                 telemetry.addData("Direction: ", "No Move");
             }
 
-            /*
-            else if (RY>0 && LY<0){
-                telemetry.addData("Direction: ", "Tank Left");
-                catbot.setVelocity(-velocity, -velocity, velocity, velocity);
-            }
-
-
-            else if (RY<0 && LY>0){
-                telemetry.addData("Direction: ", "Tank Right");
-                catbot.setVelocity(velocity, velocity, -velocity, -velocity);
-            }
-            */
             else if (RX == 0 && RY != 0) {
 
                 if(RY>0){
@@ -120,10 +107,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
             }
 
             telemetry.addData("Status", "Running");
-            telemetry.addData("RX",RX);
-            telemetry.addData( "RY", RY);
-            telemetry.addData( "LX", LX);
-            telemetry.addData( "LY", LY);
+            telemetry.addData("RX", RX);
+            telemetry.addData("RY", RY);
             telemetry.addData("Power", pwr);
 
             telemetry.addData("Motor Velocity L1", catbot.getMotorL1().getVelocity());
