@@ -63,6 +63,28 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Deliver Wobble Goal to correct target zone (15 points)
 
         // Park over launch line (5 points)
+        // Wait for the game to start (driver presses PLAY)
+        // Abort this loop is started or stopped.
+        while (!(isStarted() || isStopRequested())) {
+
+            // Display the light level while we are waiting to start
+            telemetry.addData("Light Level", catbot.getLightSensor().getLightDetected());
+            telemetry.update();
+            idle();
+        }
+
+        // Start the robot moving forward, and then begin looking for a white line.
+        catbot.setVelocity(100);
+        // run until the white line is seen OR the driver presses STOP;
+        while (opModeIsActive() && (catbot.getLightSensor().getLightDetected() < catbot.WHITE_THRESHOLD)) {
+
+            // Display the light level while we are looking for the line
+            telemetry.addData("Light Level",  catbot.getLightSensor().getLightDetected());
+            telemetry.update();
+        }
+        // Stop all motors
+        catbot.setVelocity(0);
+
 
         // Place ring in low goal (3 points ea.)
 

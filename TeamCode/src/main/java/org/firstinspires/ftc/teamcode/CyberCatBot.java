@@ -4,17 +4,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.LightSensor;
 
 public class CyberCatBot {
 
     // CONSTANTS ***********************************************************************************
 
-    public static double PI_MULTIPLE = 0.1;
-    public static double F_CONSTANT = 32767;
-    public static double D_CONSTANT = 0;
-    public static double POSITION_CONSTANT = 5.0;
-
-    public static double MAX_VELOCITY = 3060;
+    public static final double PI_MULTIPLE = 0.1;
+    public static final double F_CONSTANT = 32767;
+    public static final double D_CONSTANT = 0;
+    public static final double POSITION_CONSTANT = 5.0;
+    public static final double WHITE_THRESHOLD = 0.2;  // spans between 0.1 - 0.5 from dark to light
+    public static final double MAX_VELOCITY = 3060;
 
     // PROPERTIES **********************************************************************************
 
@@ -23,6 +24,7 @@ public class CyberCatBot {
     private DcMotorEx motorR1;
     private DcMotorEx motorR2;
     private DcMotorEx ringMotor;
+    private LightSensor lightSensor;
     private HardwareMap hardwareMap;
 
     // METHODS *************************************************************************************
@@ -53,6 +55,9 @@ public class CyberCatBot {
     }
 
     public DcMotorEx getRingMotor() { return ringMotor; }
+
+    public LightSensor getLightSensor() { return lightSensor; }
+
 
     public void setVelocity(double velocity)
     {
@@ -86,12 +91,13 @@ public class CyberCatBot {
         motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
         motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR2);
-        /*
+
         ringMotor = hardwareMap.get(DcMotorEx.class, "ringMotor");
         ringMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ringMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-           */
+        lightSensor = hardwareMap.get(LightSensor.class, "lightSensor");
+        lightSensor.enableLed(true);
     }
 
     private void initMotor(DcMotorEx motor)
