@@ -61,8 +61,12 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // From YouTube video: https://www.youtube.com/watch?v=H3V3A7CgwPU
 
         // Deliver Wobble Goal to correct target zone (15 points)
+             // pick the correct square to go to based on the number of rings
+             // drive to the squares
+             // place the wobble goal completely into the square
 
         // Park over launch line (5 points)
+
         // Wait for the game to start (driver presses PLAY)
         // Abort this loop is started or stopped.
         while (!(isStarted() || isStopRequested())) {
@@ -87,9 +91,11 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
 
         // Place ring in low goal (3 points ea.)
-
+            // drive to goal
+            // place 1 into low goal
         // Ring launched into mid goal (6 points ea.)
-
+            // drive to behind launch line
+            // shoot 2 rings into mid goal
         // Ring launched into high goal (12 points ea.)
 
         // Knock down Power Shot Target (15 points ea.)
