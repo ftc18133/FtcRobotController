@@ -17,6 +17,16 @@ public class CyberCatBot {
     public static final double WHITE_THRESHOLD = 0.2;  // spans between 0.1 - 0.5 from dark to light
     public static final double MAX_VELOCITY = 3060;
 
+    // eg: HD Hex Motor https://docs.revrobotics.com/rev-control-system/sensors/encoders/motor-based-encoders
+    public static final double     COUNTS_PER_MOTOR_REV    = 28 ;
+    public static final double     DRIVE_GEAR_REDUCTION    = 20 ;     // 20x gear box
+    public static final double     WHEEL_DIAMETER_CM   = 7.5 ;     // For figuring circumference
+    public static final double     COUNTS_PER_CM         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+            (WHEEL_DIAMETER_CM * 3.1415);
+    public static final double     DRIVE_SPEED             = 0.6;
+    public static final double     TURN_SPEED              = 0.5;
+
+
     // PROPERTIES **********************************************************************************
 
     private DcMotorEx motorL1;
@@ -75,7 +85,28 @@ public class CyberCatBot {
         motorR2.setVelocity(r2Velocity);
     }
 
+    public void runToPosition(  double leftCM,
+                                double rightCM,
+                                double velocity){
+        // Determine new target position, and pass to motor controller
+        int newLeftTarget = motorL1.getCurrentPosition() + (int)(leftCM * COUNTS_PER_CM);
+        int newRightTarget = motorR1.getCurrentPosition() + (int)(rightCM * COUNTS_PER_CM);
+        motorL1.setTargetPosition(newLeftTarget);
+        motorR1.setTargetPosition(newRightTarget);
+        motorL2.setTargetPosition(newLeftTarget);
+        motorR2.setTargetPosition(newRightTarget);
 
+        // Turn On RUN_TO_POSITION
+        motorL1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        // reset the timeout time and start motion.
+        //runtime.reset();
+        setVelocity(velocity);
+    }
     private void init()
     {
         motorL1 = hardwareMap.get(DcMotorEx.class, "motorL1");
