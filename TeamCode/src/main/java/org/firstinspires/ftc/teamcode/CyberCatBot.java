@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 public class CyberCatBot {
 
@@ -14,7 +14,7 @@ public class CyberCatBot {
     public static final double F_CONSTANT = 32767;
     public static final double D_CONSTANT = 0;
     public static final double POSITION_CONSTANT = 5.0;
-    public static final double WHITE_THRESHOLD = 0.2;  // spans between 0.1 - 0.5 from dark to light
+    public static final int WHITE_THRESHOLD = 500;  // spans between 0.1 - 0.5 from dark to light
     public static final double MAX_VELOCITY = 3060;
 
     // eg: HD Hex Motor https://docs.revrobotics.com/rev-control-system/sensors/encoders/motor-based-encoders
@@ -34,7 +34,7 @@ public class CyberCatBot {
     private DcMotorEx motorR1;
     private DcMotorEx motorR2;
     private DcMotorEx ringMotor;
-    private LightSensor lightSensor;
+    private ColorSensor lightSensor;
     private HardwareMap hardwareMap;
 
     // METHODS *************************************************************************************
@@ -66,7 +66,7 @@ public class CyberCatBot {
 
     public DcMotorEx getRingMotor() { return ringMotor; }
 
-    public LightSensor getLightSensor() { return lightSensor; }
+    public ColorSensor getLightSensor() { return lightSensor; }
 
 
     public void setVelocity(double velocity)
@@ -110,24 +110,27 @@ public class CyberCatBot {
     private void init()
     {
         motorL1 = hardwareMap.get(DcMotorEx.class, "motorL1");
+        motorL1.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorL1);
 
         motorL2 = hardwareMap.get(DcMotorEx.class, "motorL2");
+        motorL2.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorL2);
 
         motorR1 = hardwareMap.get(DcMotorEx.class, "motorR1");
-        motorR1.setDirection(DcMotorSimple.Direction.REVERSE);
+        //motorR1.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR1);
 
         motorR2 = hardwareMap.get(DcMotorEx.class, "motorR2");
-        motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
+        //motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR2);
 
+        /*
         ringMotor = hardwareMap.get(DcMotorEx.class, "ringMotor");
         ringMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ringMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        lightSensor = hardwareMap.get(LightSensor.class, "lightSensor");
+        */
+        lightSensor = hardwareMap.get(ColorSensor.class, "lightSensor");
         lightSensor.enableLed(true);
     }
 

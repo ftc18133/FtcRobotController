@@ -72,18 +72,19 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         while (!(isStarted() || isStopRequested())) {
 
             // Display the light level while we are waiting to start
-            telemetry.addData("Light Level", catbot.getLightSensor().getLightDetected());
+            telemetry.addData("Light Level", catbot.getLightSensor().alpha());
             telemetry.update();
             idle();
         }
 
         // Start the robot moving forward, and then begin looking for a white line.
-        catbot.setVelocity(100);
+        catbot.setVelocity(1000);
         // run until the white line is seen OR the driver presses STOP;
-        while (opModeIsActive() && (catbot.getLightSensor().getLightDetected() < catbot.WHITE_THRESHOLD)) {
+        while (opModeIsActive() && (catbot.getLightSensor().alpha() < catbot.WHITE_THRESHOLD)) {
 
             // Display the light level while we are looking for the line
-            telemetry.addData("Light Level",  catbot.getLightSensor().getLightDetected());
+            telemetry.addData("Light Level",  catbot.getLightSensor().alpha());
+            //telemetry.addData("Light Level",  lightSensor.getLightDetected());
             telemetry.update();
         }
         // Stop all motors
