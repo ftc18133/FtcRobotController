@@ -84,7 +84,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
                     telemetry.addData("Direction: ", "Strafe Right");
                 }
 
-                catbot.setVelocity(velocity, -velocity, -velocity, velocity);
+                //catbot.setVelocity(velocity, -velocity, -velocity, velocity);
+                catbot.strafeVelocity(velocity);
 
             } else if ((RX < 0 && RY < 0) || (RX > 0 && RY > 0)) {
 

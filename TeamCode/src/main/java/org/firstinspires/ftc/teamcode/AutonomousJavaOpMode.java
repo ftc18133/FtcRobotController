@@ -36,17 +36,18 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class AutonomousJavaOpMode extends LinearOpMode {
 
     /* Declare OpMode members. */
-    CyberCatBot catbot;
-    private ElapsedTime     runtime = new ElapsedTime();
+    private CyberCatBot catbot;
+    //private ElapsedTime     runtime = new ElapsedTime();
 
     // eg: HD Hex Motor https://docs.revrobotics.com/rev-control-system/sensors/encoders/motor-based-encoders
-    static final double     COUNTS_PER_MOTOR_REV    = 28 ;
-    static final double     DRIVE_GEAR_REDUCTION    = 20 ;     // 20x gear box
-    static final double     WHEEL_DIAMETER_CM   = 7.5 ;     // For figuring circumference
-    static final double     COUNTS_PER_CM         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                    (WHEEL_DIAMETER_CM * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
-    static final double     TURN_SPEED              = 0.5;
+    private static final double     COUNTS_PER_MOTOR_REV    = 28 ;
+    private static final double     DRIVE_GEAR_REDUCTION    = 20 ;     // 20x gear box
+    private static final double     WHEEL_DIAMETER_CM   = 7.5 ;     // For figuring circumference
+    private static final double     COUNTS_PER_CM         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+                                                            (WHEEL_DIAMETER_CM * 3.1415);
+
+    private static final double AUTONOMOUS_VELOCITY = 1000;
+    private static final double ZERO_VELOCITY = 0;
 
     @Override
     public void runOpMode() {
@@ -78,7 +79,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         }
 
         // Start the robot moving forward, and then begin looking for a white line.
-        catbot.setVelocity(1000);
+        catbot.setVelocity(AUTONOMOUS_VELOCITY);
         // run until the white line is seen OR the driver presses STOP;
         while (opModeIsActive() && (catbot.getLightSensor().alpha() < catbot.WHITE_THRESHOLD)) {
 
@@ -90,6 +91,11 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Stop all motors
         catbot.setVelocity(0);
 
+        // go forward 20cm
+        go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.FORWARD);
+        // go back 20cm
+        // go right 20cm
+        // go left 20cm
 
         // Place ring in low goal (3 points ea.)
             // drive to goal
@@ -101,64 +107,33 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // Knock down Power Shot Target (15 points ea.)
 
-        /*
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
-        telemetry.update();
-
-        // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
-                catbot.getMotorL1().getCurrentPosition(),
-                       catbot.getMotorR1().getCurrentPosition());
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 48cm with 5 Sec timeout
-        encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12cm with 4 Sec timeout
-        encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24cm with 4 Sec timeout
-
         telemetry.addData("Path", "Complete");
         telemetry.update();
-        */
+
     }
 
-    /*
-     *  Method to perform a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */
-    public void encoderDrive(double speed,
-                             double leftCM,
-                             double rightCM,
-                             double timeoutS) {
-        /*
-        int newLeftTarget;
-        int newRightTarget;
-
-        // Ensure that the opmode is still active
+    private void go(double velocity,
+                    double distance,
+                    int direction)
+    {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(leftCM * COUNTS_PER_CM);
-            newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(rightCM * COUNTS_PER_CM);
-            robot.leftDrive.setTargetPosition(newLeftTarget);
-            robot.rightDrive.setTargetPosition(newRightTarget);
+            int newLeft1Target = catbot.getMotorL1().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+            int newLeft2Target = catbot.getMotorL2().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+            int newRight1Target = catbot.getMotorR1().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+            int newRight2Target = catbot.getMotorR2().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+
+            catbot.getMotorL1().setTargetPosition(newLeft1Target);
+            catbot.getMotorR1().setTargetPosition(newRight1Target);
+            catbot.getMotorL2().setTargetPosition(newLeft2Target);
+            catbot.getMotorR2().setTargetPosition(newRight2Target);
 
             // Turn On RUN_TO_POSITION
-            robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            catbot.setMotorMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
-            runtime.reset();
-            robot.leftDrive.setPower(Math.abs(speed));
-            robot.rightDrive.setPower(Math.abs(speed));
+            catbot.setVelocity(velocity);
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -167,28 +142,28 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
+                    (catbot.getMotorL1().isBusy() && catbot.getMotorR1().isBusy() &&
+                     catbot.getMotorL2().isBusy() && catbot.getMotorR2().isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                        robot.leftDrive.getCurrentPosition(),
-                        robot.rightDrive.getCurrentPosition());
+                telemetry.addData("Path1", "Running to %7d : %7d : %7d : %7d",
+                        newLeft1Target, newLeft2Target, newRight1Target, newRight2Target);
+                telemetry.addData("Path2", "Running at %7d :%7d : %7d : %7d",
+                        catbot.getMotorL1().getCurrentPosition(),
+                        catbot.getMotorL2().getCurrentPosition(),
+                        catbot.getMotorR1().getCurrentPosition(),
+                        catbot.getMotorR2().getCurrentPosition());
                 telemetry.update();
             }
 
             // Stop all motion;
-            robot.leftDrive.setPower(0);
-            robot.rightDrive.setPower(0);
+            catbot.setVelocity(ZERO_VELOCITY);
 
             // Turn off RUN_TO_POSITION
-            robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            catbot.setMotorMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
-        }
 
-         */
+        }
     }
 }

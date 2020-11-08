@@ -23,9 +23,13 @@ public class CyberCatBot {
     public static final double     WHEEL_DIAMETER_CM   = 7.5 ;     // For figuring circumference
     public static final double     COUNTS_PER_CM         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_CM * 3.1415);
-    public static final double     DRIVE_SPEED             = 0.6;
-    public static final double     TURN_SPEED              = 0.5;
+    //public static final double     DRIVE_SPEED             = 0.6;
+    //public static final double     TURN_SPEED              = 0.5;
 
+    public static final int FORWARD = 0;
+    public static final int BACKWARD = 1;
+    public static final int LEFT = 1;
+    public static final int RIGHT = 1;
 
     // PROPERTIES **********************************************************************************
 
@@ -64,10 +68,17 @@ public class CyberCatBot {
         return motorR2;
     }
 
+    public void setMotorMode(DcMotor.RunMode runMode)
+    {
+        getMotorL1().setMode(runMode);
+        getMotorL2().setMode(runMode);
+        getMotorR1().setMode(runMode);
+        getMotorR2().setMode(runMode);
+    }
+
     public DcMotorEx getRingMotor() { return ringMotor; }
 
     public ColorSensor getLightSensor() { return lightSensor; }
-
 
     public void setVelocity(double velocity)
     {
@@ -85,28 +96,14 @@ public class CyberCatBot {
         motorR2.setVelocity(r2Velocity);
     }
 
-    public void runToPosition(  double leftCM,
-                                double rightCM,
-                                double velocity){
-        // Determine new target position, and pass to motor controller
-        int newLeftTarget = motorL1.getCurrentPosition() + (int)(leftCM * COUNTS_PER_CM);
-        int newRightTarget = motorR1.getCurrentPosition() + (int)(rightCM * COUNTS_PER_CM);
-        motorL1.setTargetPosition(newLeftTarget);
-        motorR1.setTargetPosition(newRightTarget);
-        motorL2.setTargetPosition(newLeftTarget);
-        motorR2.setTargetPosition(newRightTarget);
-
-        // Turn On RUN_TO_POSITION
-        motorL1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorR1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorL2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorR2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        // reset the timeout time and start motion.
-        //runtime.reset();
-        setVelocity(velocity);
+    public void strafeVelocity(double velocity)
+    {
+        motorL1.setVelocity(velocity);
+        motorL2.setVelocity(-velocity);
+        motorR1.setVelocity(-velocity);
+        motorR2.setVelocity(velocity);
     }
+
     private void init()
     {
         motorL1 = hardwareMap.get(DcMotorEx.class, "motorL1");
