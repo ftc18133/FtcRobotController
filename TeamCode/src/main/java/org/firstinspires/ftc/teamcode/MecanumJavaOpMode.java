@@ -41,14 +41,14 @@ public class MecanumJavaOpMode extends LinearOpMode {
             // Diagonal: Diagonal, top left, top right, bottom right, bottom left: gamepad analog right: same as straight
             // Tankturn: full body turn on center, gamepad left analog: how far you push = speed
 
+            /*
             if (this.gamepad1.a){
                 catbot.getRingMotor().setPower(1.0);
             }
             else if (gamepad1.b){
                 catbot.getRingMotor().setPower(0);
             }
-
-            else if (gamepad1.dpad_left){
+            else */ if (gamepad1.dpad_left){
                 telemetry.addData("Direction: ", "Tank Left");
                 catbot.setVelocity(-CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY);
             }

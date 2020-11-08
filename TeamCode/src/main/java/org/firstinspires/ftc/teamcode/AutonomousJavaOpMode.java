@@ -141,7 +141,11 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             }
             else if (direction == CyberCatBot.BACKWARD)
             {
-
+                velocity = -velocity;
+                newLeft1Target = catbot.getMotorL1().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                newLeft2Target = catbot.getMotorL2().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                newRight1Target = catbot.getMotorR1().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                newRight2Target = catbot.getMotorR2().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
             }
             else if (direction == CyberCatBot.RIGHT)
             {
