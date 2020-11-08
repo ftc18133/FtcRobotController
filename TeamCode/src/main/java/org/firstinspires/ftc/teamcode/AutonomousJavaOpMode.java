@@ -59,6 +59,10 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         catbot = new CyberCatBot(hardwareMap);
 
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+
         // From YouTube video: https://www.youtube.com/watch?v=H3V3A7CgwPU
 
         // Deliver Wobble Goal to correct target zone (15 points)
@@ -68,6 +72,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // Park over launch line (5 points)
 
+        /*
         // Wait for the game to start (driver presses PLAY)
         // Abort this loop is started or stopped.
         while (!(isStarted() || isStopRequested())) {
@@ -91,9 +96,13 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Stop all motors
         catbot.setVelocity(0);
 
-        // go forward 20cm
-        go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.FORWARD);
-        // go back 20cm
+         */
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
+        go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
         // go right 20cm
         // go left 20cm
 
@@ -118,11 +127,36 @@ public class AutonomousJavaOpMode extends LinearOpMode {
     {
         if (opModeIsActive()) {
 
+            int newLeft1Target = 0;
+            int newLeft2Target = 0;
+            int newRight1Target = 0;
+            int newRight2Target = 0;
+
             // Determine new target position, and pass to motor controller
-            int newLeft1Target = catbot.getMotorL1().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
-            int newLeft2Target = catbot.getMotorL2().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
-            int newRight1Target = catbot.getMotorR1().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
-            int newRight2Target = catbot.getMotorR2().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+            if(direction == CyberCatBot.FORWARD) {
+                newLeft1Target = catbot.getMotorL1().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+                newLeft2Target = catbot.getMotorL2().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+                newRight1Target = catbot.getMotorR1().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+                newRight2Target = catbot.getMotorR2().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+            }
+            else if (direction == CyberCatBot.BACKWARD)
+            {
+
+            }
+            else if (direction == CyberCatBot.RIGHT)
+            {
+
+            }
+            else if (direction == CyberCatBot.LEFT)
+            {
+
+            }
+            else
+            {
+                telemetry.addData("Direction", "Invalid");
+                telemetry.update();
+                return;
+            }
 
             catbot.getMotorL1().setTargetPosition(newLeft1Target);
             catbot.getMotorR1().setTargetPosition(newRight1Target);
@@ -161,8 +195,16 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
             // Turn off RUN_TO_POSITION
             catbot.setMotorMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sleep(250);   // optional pause after each move
 
-            //  sleep(250);   // optional pause after each move
+                            /*
+                velocity = -velocity;
+                newLeft1Target = catbot.getMotorL1().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                newLeft2Target = catbot.getMotorL2().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                newRight1Target = catbot.getMotorR1().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                newRight2Target = catbot.getMotorR2().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                */
+
 
         }
     }
