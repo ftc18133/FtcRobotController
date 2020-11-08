@@ -200,16 +200,6 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             // Turn off RUN_TO_POSITION
             catbot.setMotorMode(DcMotor.RunMode.RUN_USING_ENCODER);
             sleep(250);   // optional pause after each move
-
-                            /*
-                velocity = -velocity;
-                newLeft1Target = catbot.getMotorL1().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
-                newLeft2Target = catbot.getMotorL2().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
-                newRight1Target = catbot.getMotorR1().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
-                newRight2Target = catbot.getMotorR2().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
-                */
-
-
         }
     }
 }
