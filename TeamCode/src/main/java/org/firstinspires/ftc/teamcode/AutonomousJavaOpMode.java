@@ -101,10 +101,10 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
-        go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
-        // go right 20cm
-        // go left 20cm
+        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
+        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
+        go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.RIGHT);
+        go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.LEFT);
 
         // Place ring in low goal (3 points ea.)
             // drive to goal
@@ -149,7 +149,10 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             }
             else if (direction == CyberCatBot.RIGHT)
             {
-
+                newLeft1Target = catbot.getMotorL1().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
+                newLeft2Target = catbot.getMotorL2().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                newRight1Target = catbot.getMotorR1().getCurrentPosition() - (int) (distance * COUNTS_PER_CM);
+                newRight2Target = catbot.getMotorR2().getCurrentPosition() + (int) (distance * COUNTS_PER_CM);
             }
             else if (direction == CyberCatBot.LEFT)
             {
@@ -171,7 +174,16 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             catbot.setMotorMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
-            catbot.setVelocity(velocity);
+            if (direction == CyberCatBot.FORWARD || direction == CyberCatBot.BACKWARD) {
+                catbot.setVelocity(velocity);
+            }
+            else if (direction == CyberCatBot.RIGHT) {
+                catbot.setVelocity(velocity, -velocity, -velocity, velocity);
+            }
+                else if (direction == CyberCatBot.LEFT) {
+                    catbot.setVelocity(-velocity, velocity, velocity, -velocity);
+            }
+
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
