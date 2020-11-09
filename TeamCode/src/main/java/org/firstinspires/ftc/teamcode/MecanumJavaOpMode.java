@@ -28,12 +28,18 @@ public class MecanumJavaOpMode extends LinearOpMode {
         double RX = 0;
         double RY = 0;
         double pwr = 0;
+        double lpwr = 0;
         double velocity = 0;
+        double LX = 0;
+        double LY = 0;
 
         while (opModeIsActive()) {
             RX = this.gamepad1.right_stick_x;
-            RY = -this.gamepad1.right_stick_y; // opposite what you think
+            RY = -this.gamepad1.right_stick_y;// opposite what you think
+            LX = this.gamepad1.left_stick_x;
+            LY = -this.gamepad1.left_stick_y;
             pwr = Math.sqrt(RX*RX + RY*RY);
+            lpwr = Math.sqrt(LX*LX + LY*LY);
             velocity = pwr * CyberCatBot.MAX_VELOCITY;
 
             // straight: Forward, top or bottom, push towards top or bottom (gamepad analog right) speed controlled by how far you push it
@@ -48,6 +54,16 @@ public class MecanumJavaOpMode extends LinearOpMode {
             else if (gamepad1.b){
                 catbot.getRingMotor().setPower(0);
             }
+            else if (gamepad1.x) {
+                catbot.getIngestMotor().setPower(1);
+            }
+            else if (gamepad1.y) {
+                catbot.getIngestMotor().setPower(0);
+            }
+            else if (LY != 0) {
+                catbot.getRampMotor().setPower(lpwr);
+            }
+            
             else */ if (gamepad1.dpad_left){
                 telemetry.addData("Direction: ", "Tank Left");
                 catbot.setVelocity(-CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY);
