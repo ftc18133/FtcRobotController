@@ -13,7 +13,7 @@ import java.lang.Math;
 
 @TeleOp
 public class MecanumJavaOpMode extends LinearOpMode {
-    CyberCatBot catbot;
+    private CyberCatBot catbot;
 
     @Override
     public void runOpMode() {

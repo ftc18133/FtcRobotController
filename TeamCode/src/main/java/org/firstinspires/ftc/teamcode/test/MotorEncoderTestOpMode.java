@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.CyberCatBot;
 
-@TeleOp
+//@TeleOp
 public class MotorEncoderTestOpMode extends LinearOpMode {
 
     @Override

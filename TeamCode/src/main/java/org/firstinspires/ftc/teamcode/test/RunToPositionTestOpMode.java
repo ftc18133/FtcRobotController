@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
-@TeleOp
+//@TeleOp
 public class RunToPositionTestOpMode extends LinearOpMode {
     DcMotorEx motor;
 

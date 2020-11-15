@@ -7,10 +7,7 @@ import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@TeleOp
-/**
- * 3060 at full battery charge 10/11/20
- */
+//@TeleOp
 public class LightSensorTestOpMode extends LinearOpMode {
 
    //  private DistanceSensor lightSensor;
