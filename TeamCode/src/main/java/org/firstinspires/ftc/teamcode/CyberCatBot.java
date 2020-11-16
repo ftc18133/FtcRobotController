@@ -126,19 +126,20 @@ public class CyberCatBot {
         //motorR2.setDirection(DcMotorSimple.Direction.REVERSE);
         initMotor(motorR2);
 
-        /*
+
         ringMotor = hardwareMap.get(DcMotorEx.class, "ringMotor");
-        ringMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //ringMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ringMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         ingestMotor = hardwareMap.get(DcMotorEx.class, "ingestMotor");
-        ingestMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //ingestMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ingestMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rampMotor = hardwareMap.get(DcMotorEx.class, "rampMotor");
-        rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rampMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        */
+        rampMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //rampMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         lightSensor = hardwareMap.get(ColorSensor.class, "lightSensor");
         lightSensor.enableLed(true);
     }

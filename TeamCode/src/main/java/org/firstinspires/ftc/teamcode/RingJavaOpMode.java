@@ -8,6 +8,9 @@ public class RingJavaOpMode extends LinearOpMode {
     private CyberCatBot catbot;
 
     // booleans to save motor state
+    boolean ingestMotor;
+    boolean rampMotor;
+    boolean ringMotor;
 
     @Override
     public void runOpMode() {
@@ -23,18 +26,36 @@ public class RingJavaOpMode extends LinearOpMode {
 
             if (this.gamepad1.a){
                 // set ingest motor on if off
-
-                // set ingest motor off if on
+                if (ingestMotor) {
+                    catbot.getIngestMotor().setPower(0);
+                }
+                else {
+                    // set ingest motor off if on
+                    catbot.getIngestMotor().setPower(1);
+                }
+                ingestMotor = !ingestMotor;
             }
             else if (gamepad1.b){
-                // set ramp motor on if off
-
-                // set ramp motor off if on
+                if (rampMotor) {
+                    // set ramp motor on if off
+                    catbot.getRampMotor().setPower(0);
+                }
+                    else {
+                    // set ramp motor off if on
+                    catbot.getRampMotor().setPower(1);
+                }
+                rampMotor = !rampMotor;
             }
             else if (gamepad1.x) {
-                // set ring motor on if off
-
-                // set ring motor off if on
+                if (ringMotor) {
+                    // set ring motor on if off
+                    catbot.getRingMotor().setPower(0);
+                }
+                else {
+                    // set ring motor off if on
+                    catbot.getRingMotor().setPower(1);
+                }
+                ringMotor = !ringMotor;
             }
 
             telemetry.addData("Status", "Running");
