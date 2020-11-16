@@ -11,6 +11,7 @@ public class RingJavaOpMode extends LinearOpMode {
     boolean ingestMotor;
     boolean rampMotor;
     boolean ringMotor;
+    boolean liftMotor;
 
     @Override
     public void runOpMode() {
@@ -56,6 +57,17 @@ public class RingJavaOpMode extends LinearOpMode {
                     catbot.getRingMotor().setPower(1);
                 }
                 ringMotor = !ringMotor;
+            }
+            else if (gamepad1.y) {
+                if (liftMotor) {
+                    // set ring motor on if off
+                    catbot.getLiftMotor().setPower(0);
+                }
+                else {
+                    // set ring motor off if on
+                    catbot.getLiftMotor().setPower(1);
+                }
+                liftMotor = !liftMotor;
             }
 
             telemetry.addData("Status", "Running");

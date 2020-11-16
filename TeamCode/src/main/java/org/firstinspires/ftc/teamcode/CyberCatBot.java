@@ -38,6 +38,7 @@ public class CyberCatBot {
     private DcMotorEx ringMotor;
     private DcMotorEx ingestMotor;
     private DcMotorEx rampMotor;
+    private DcMotorEx liftMotor;
     private ColorSensor lightSensor;
     private HardwareMap hardwareMap;
 
@@ -81,6 +82,8 @@ public class CyberCatBot {
     public DcMotorEx getIngestMotor() { return ingestMotor; }
 
     public DcMotorEx getRampMotor() { return rampMotor;}
+
+    public DcMotorEx getLiftMotor() { return liftMotor;}
 
     public ColorSensor getLightSensor() { return lightSensor; }
 
@@ -139,6 +142,10 @@ public class CyberCatBot {
         rampMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         //rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //rampMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
+        //ingestMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         lightSensor = hardwareMap.get(ColorSensor.class, "lightSensor");
         lightSensor.enableLed(true);
