@@ -63,8 +63,15 @@ public class MecanumJavaOpMode extends LinearOpMode {
             else if (LY != 0) {
                 catbot.getRampMotor().setPower(lpwr);
             }
+            */
+            if (gamepad2.a) {
+                catbot.getClawServo().setPosition(0);
+            }
+            else if (gamepad2.b) {
+                catbot.getClawServo().setPosition(0.5);
+            }
             
-            else */ if (gamepad1.dpad_left){
+            else if (gamepad1.dpad_left){
                 telemetry.addData("Direction: ", "Tank Left");
                 catbot.setVelocity(-CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY);
             }

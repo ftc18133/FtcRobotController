@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class CyberCatBot {
 
@@ -41,6 +42,8 @@ public class CyberCatBot {
     private DcMotorEx liftMotor;
     private ColorSensor lightSensor;
     private HardwareMap hardwareMap;
+    private Servo clawServo;
+
 
     // METHODS *************************************************************************************
 
@@ -86,6 +89,8 @@ public class CyberCatBot {
     public DcMotorEx getLiftMotor() { return liftMotor;}
 
     public ColorSensor getLightSensor() { return lightSensor; }
+
+    public Servo getClawServo() { return clawServo; }
 
     public void setVelocity(double velocity)
     {
@@ -149,6 +154,9 @@ public class CyberCatBot {
 
         lightSensor = hardwareMap.get(ColorSensor.class, "lightSensor");
         lightSensor.enableLed(true);
+
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
+
     }
 
     private void initMotor(DcMotorEx motor)
