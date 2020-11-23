@@ -64,11 +64,13 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 catbot.getRampMotor().setPower(lpwr);
             }
             */
-            if (gamepad2.a) {
+            if (gamepad1.a) {
                 catbot.getClawServo().setPosition(0);
+                telemetry.addData("Servo: ", "Position 0");
             }
-            else if (gamepad2.b) {
-                catbot.getClawServo().setPosition(0.5);
+            else if (gamepad1.b) {
+                catbot.getClawServo().setPosition(0.25);
+                telemetry.addData("Servo: ", "Position 0.25");
             }
             
             else if (gamepad1.dpad_left){
