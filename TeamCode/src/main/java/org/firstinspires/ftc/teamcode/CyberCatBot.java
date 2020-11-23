@@ -87,7 +87,7 @@ public class CyberCatBot {
      */
     WebcamName webcamName = null;
 
-    private boolean targetVisible = false;
+
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
@@ -219,7 +219,7 @@ public class CyberCatBot {
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
-        initWebcam();
+        //initWebcam();
     }
 
     private void initMotor(DcMotorEx motor)
