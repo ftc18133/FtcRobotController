@@ -67,7 +67,9 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // Deliver Wobble Goal to correct target zone (15 points)
              // pick the correct square to go to based on the number of rings
-             // drive to the squares
+
+
+             // drive to the squares based on relative position
              // place the wobble goal completely into the square
 
         // Park over launch line (5 points)
