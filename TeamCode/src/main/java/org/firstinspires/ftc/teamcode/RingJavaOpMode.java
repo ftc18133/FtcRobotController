@@ -28,11 +28,11 @@ public class RingJavaOpMode extends LinearOpMode {
             if (this.gamepad1.a){
                 // set ingest motor on if off
                 if (ingestMotor) {
-                    catbot.getIngestMotor().setPower(0);
+                    //catbot.getIngestMotor().setPower(0);
                 }
                 else {
                     // set ingest motor off if on
-                    catbot.getIngestMotor().setPower(1);
+                    //catbot.getIngestMotor().setPower(1);
                 }
                 ingestMotor = !ingestMotor;
             }
@@ -50,11 +50,13 @@ public class RingJavaOpMode extends LinearOpMode {
             else if (gamepad1.x) {
                 if (ringMotor) {
                     // set ring motor on if off
-                    catbot.getRingMotor().setPower(0);
+                    catbot.getRingMotor1().setPower(0);
+                    catbot.getRingMotor2().setPower(0);
                 }
                 else {
                     // set ring motor off if on
-                    catbot.getRingMotor().setPower(1);
+                    catbot.getRingMotor1().setPower(1);
+                    catbot.getRingMotor2().setPower(1);
                 }
                 ringMotor = !ringMotor;
             }
@@ -72,9 +74,10 @@ public class RingJavaOpMode extends LinearOpMode {
 
             telemetry.addData("Status", "Running");
 
-            telemetry.addData("Ingest Motor", catbot.getRingMotor().getPower());
+            //telemetry.addData("Ingest Motor", catbot.getRingMotor().getPower());
             telemetry.addData("Ramp Motor", catbot.getRampMotor().getPower());
-            telemetry.addData("Ring Motor", catbot.getRingMotor().getPower());
+            telemetry.addData("Ring Motor 1", catbot.getRingMotor1().getPower());
+            telemetry.addData("Ring Motor 2", catbot.getRingMotor2().getPower());
 
             telemetry.update();
         }

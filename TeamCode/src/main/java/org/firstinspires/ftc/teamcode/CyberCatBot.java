@@ -98,8 +98,9 @@ public class CyberCatBot {
     private DcMotorEx motorL2;
     private DcMotorEx motorR1;
     private DcMotorEx motorR2;
-    private DcMotorEx ringMotor;
-    private DcMotorEx ingestMotor;
+    private DcMotorEx ringMotor1;
+    private DcMotorEx ringMotor2;
+    //private DcMotorEx ingestMotor;
     private DcMotorEx rampMotor;
     private DcMotorEx liftMotor;
     private ColorSensor lightSensor;
@@ -142,9 +143,11 @@ public class CyberCatBot {
         getMotorR2().setMode(runMode);
     }
 
-    public DcMotorEx getRingMotor() { return ringMotor; }
+    public DcMotorEx getRingMotor1() { return ringMotor1; }
 
-    public DcMotorEx getIngestMotor() { return ingestMotor; }
+    public DcMotorEx getRingMotor2() { return ringMotor2; }
+
+    //public DcMotorEx getIngestMotor() { return ingestMotor; }
 
     public DcMotorEx getRampMotor() { return rampMotor;}
 
@@ -197,22 +200,25 @@ public class CyberCatBot {
         initMotor(motorR2);
 
 
-        ringMotor = hardwareMap.get(DcMotorEx.class, "ringMotor");
-        //ringMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ringMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ringMotor1 = hardwareMap.get(DcMotorEx.class, "ringMotor1");
+        ringMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        ingestMotor = hardwareMap.get(DcMotorEx.class, "ingestMotor");
+        ringMotor2 = hardwareMap.get(DcMotorEx.class, "ringMotor2");
+        ringMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ringMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        //ingestMotor = hardwareMap.get(DcMotorEx.class, "ingestMotor");
         //ingestMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ingestMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //ingestMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rampMotor = hardwareMap.get(DcMotorEx.class, "rampMotor");
         rampMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         //rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //rampMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
+        //liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
         //ingestMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         lightSensor = hardwareMap.get(ColorSensor.class, "lightSensor");
         lightSensor.enableLed(true);
