@@ -1,10 +1,14 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.CyberCatBot;
+
 @TeleOp
-public class RingJavaOpMode extends LinearOpMode {
+@Disabled
+public class RingJavaTestOpMode extends LinearOpMode {
     private CyberCatBot catbot;
 
     // booleans to save motor state
