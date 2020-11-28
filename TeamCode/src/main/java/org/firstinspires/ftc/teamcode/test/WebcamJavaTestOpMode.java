@@ -214,6 +214,7 @@ public class WebcamJavaTestOpMode extends LinearOpMode {
         blueTowerGoalTarget.setLocation(OpenGLMatrix
                 .translation(halfField, quadField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , -90)));
+        //volleyball team
         redTowerGoalTarget.setLocation(OpenGLMatrix
                 .translation(halfField, -quadField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));

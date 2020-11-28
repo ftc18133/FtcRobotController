@@ -15,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,10 +75,6 @@ public class CyberCatBot {
     private static final float halfField = 72 * mmPerInch;
     private static final float quadField  = 36 * mmPerInch;
 
-    // Class Members
-    private List<VuforiaTrackable> allTrackables = null;
-    private OpenGLMatrix lastLocation = null;
-    private VuforiaLocalizer vuforia = null;
 
     /**
      * This is the webcam we are to use. As with other hardware devices such as motors and
@@ -87,6 +84,10 @@ public class CyberCatBot {
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
+
+    private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
+    public static final String LABEL_QUAD = "Quad";
+    public static final String LABEL_SINGLE = "Single";
 
     // PROPERTIES **********************************************************************************
 
@@ -102,7 +103,11 @@ public class CyberCatBot {
     private ColorSensor lightSensor;
     private HardwareMap hardwareMap;
     private Servo clawServo;
-
+    // Class Members
+    private List<VuforiaTrackable> allTrackables;
+    private OpenGLMatrix lastLocation;
+    private VuforiaLocalizer vuforia;
+    private TFObjectDetector tfod;
 
     // METHODS *************************************************************************************
 
@@ -156,6 +161,8 @@ public class CyberCatBot {
     public List<VuforiaTrackable> getAllTrackables() { return allTrackables; }
 
     public OpenGLMatrix getLastLocation() { return lastLocation; }
+
+    public TFObjectDetector getTfod() { return tfod; }
 
     public void setLastLocation(OpenGLMatrix lastLocation) { this.lastLocation = lastLocation; }
 
@@ -227,7 +234,8 @@ public class CyberCatBot {
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
-        //initWebcam();
+        initWebcam();
+        initTensorFlow();
     }
 
     private void initMotor(DcMotorEx motor)
@@ -381,4 +389,12 @@ public class CyberCatBot {
 
     }
 
+    private void initTensorFlow() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minResultConfidence = 0.8f;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_QUAD, LABEL_SINGLE);
+    }
 }

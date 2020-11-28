@@ -10,6 +10,9 @@ import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+
+import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
@@ -71,14 +74,55 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // From YouTube video: https://www.youtube.com/watch?v=H3V3A7CgwPU
 
         // Deliver Wobble Goal to correct target zone (15 points)
+        // pick the correct square to go to based on the number of rings
+        // 0 rings == A
+        // 1 ring == B
+        // 4 rings == C
+
         int square = SQUARE_A;
-             // pick the correct square to go to based on the number of rings
-             // 0 rings == A
-             // 1 ring == B
-             // 4 rings == C
+        if (catbot.getTfod() != null) {
+            catbot.getTfod().activate();
+        }
+
+        if (opModeIsActive()) {
+            // break after 2s
+            long start = System.currentTimeMillis();
+            long current = -1l;
+            // break after 5s if doesn't detect rings
+            while (opModeIsActive() && (current - start) < 5000) {
+                if (catbot.getTfod() != null) {
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = catbot.getTfod().getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        // step through the list of recognitions and display boundary info.
+                        int i = 0;
+                        for (Recognition recognition : updatedRecognitions) {
+                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                            if (recognition.getLabel().equals(catbot.LABEL_SINGLE))
+                                square = SQUARE_B;
+                            else if (recognition.getLabel().equals(catbot.LABEL_QUAD))
+                                square = SQUARE_C;
+
+                            //telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                            //        recognition.getLeft(), recognition.getTop());
+                            //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                            //        recognition.getRight(), recognition.getBottom());
+                        }
+                        telemetry.update();
+                    }
+                }
+                current = System.currentTimeMillis();
+            }
+        }
+
+        if (catbot.getTfod() != null) {
+            catbot.getTfod().shutdown();
+        }
 
              // drive to the squares based on relative position
-        driveToSquare(square);
+        //driveToSquare(square);
 
         // Disable Tracking when we are done;
         //targetsUltimateGoal.deactivate();
@@ -99,7 +143,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // Knock down Power Shot Target (15 points ea.)
 
-        telemetry.addData("Path", "Complete");
+        telemetry.addData("Square", square);
         telemetry.update();
 
     }
