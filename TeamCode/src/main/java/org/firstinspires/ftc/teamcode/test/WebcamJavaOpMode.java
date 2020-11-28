@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode.test;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -106,7 +107,7 @@ public class WebcamJavaOpMode extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            " --- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+            "AXSpSHD/////AAABmTJB0wiueUfYn5qqz/nt6vl0TURcWS0FMC0yTMvBwpeSqvJao0WyOjmhD6OveksT3/1z3983TWy/8QC2Koa/LgYGRx+0YEslttcCH1inXBshE7vIFYsKEOIo/ZFqSjUzfJrAhYkePEgPNjkyex6n3QLs0B1JT3CN05cDpmMvNARUFXzGu06W4PozYMjpQ9DgN3lxJUaZpzP4n4kOxsLC0u4KmwtaIJVorzQaKLZZaRBzMVX0u78VZ8B3gKravQBucP3R2X+hrJ5XaMh6/wDk2c2rsKl/L3yZqTX2cBI3oGMdp3W4cENuib4fudwC9XM76kEB4732+5IE9coMmgwnJrsOK/fKAtqYwfUbLunUo7jr";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
@@ -146,7 +147,7 @@ public class WebcamJavaOpMode extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
-        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        //VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
 
@@ -245,9 +246,9 @@ public class WebcamJavaOpMode extends LinearOpMode {
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT  = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center (Might need to adjust)
-        final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
+        final float CAMERA_FORWARD_DISPLACEMENT  = 9.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center (Might need to adjust)
+        final float CAMERA_VERTICAL_DISPLACEMENT = 5.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
+        final float CAMERA_LEFT_DISPLACEMENT     = -2.0f * mmPerInch;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)

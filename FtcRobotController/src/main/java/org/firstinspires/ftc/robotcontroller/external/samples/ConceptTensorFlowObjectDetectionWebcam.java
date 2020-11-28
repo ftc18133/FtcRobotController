@@ -50,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection Webcam", group = "Concept")
-@Disabled
+//@Disabled
 public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
@@ -69,7 +69,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+            "AXSpSHD/////AAABmTJB0wiueUfYn5qqz/nt6vl0TURcWS0FMC0yTMvBwpeSqvJao0WyOjmhD6OveksT3/1z3983TWy/8QC2Koa/LgYGRx+0YEslttcCH1inXBshE7vIFYsKEOIo/ZFqSjUzfJrAhYkePEgPNjkyex6n3QLs0B1JT3CN05cDpmMvNARUFXzGu06W4PozYMjpQ9DgN3lxJUaZpzP4n4kOxsLC0u4KmwtaIJVorzQaKLZZaRBzMVX0u78VZ8B3gKravQBucP3R2X+hrJ5XaMh6/wDk2c2rsKl/L3yZqTX2cBI3oGMdp3W4cENuib4fudwC9XM76kEB4732+5IE9coMmgwnJrsOK/fKAtqYwfUbLunUo7jr";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
