@@ -60,24 +60,22 @@ public class CyberCatBot {
      * web site at https://developer.vuforia.com/license-manager.
      *
      * Vuforia license keys are always 380 characters long, and look as if they contain mostly
-     * random data. As an example, here is a example of a fragment of a valid key:
-     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
-     * Once you've obtained a license key, copy the string from the Vuforia web site
-     * and paste it in to your code on the next line, between the double quotes.
+     * random data.
      */
     private static final String VUFORIA_KEY =
-            " --- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+            "AXSpSHD/////AAABmTJB0wiueUfYn5qqz/nt6vl0TURcWS0FMC0yTMvBwpeSqvJao0WyOjmhD6OveksT3/1z3983TWy/8QC2Koa/LgYGRx+0YEslttcCH1inXBshE7vIFYsKEOIo/ZFqSjUzfJrAhYkePEgPNjkyex6n3QLs0B1JT3CN05cDpmMvNARUFXzGu06W4PozYMjpQ9DgN3lxJUaZpzP4n4kOxsLC0u4KmwtaIJVorzQaKLZZaRBzMVX0u78VZ8B3gKravQBucP3R2X+hrJ5XaMh6/wDk2c2rsKl/L3yZqTX2cBI3oGMdp3W4cENuib4fudwC9XM76kEB4732+5IE9coMmgwnJrsOK/fKAtqYwfUbLunUo7jr";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
-    private static final float mmPerInch        = 25.4f;
-    private static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
+    public static final float mmPerInch        = 25.4f;
+    public static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
 
     // Constants for perimeter targets
     private static final float halfField = 72 * mmPerInch;
     private static final float quadField  = 36 * mmPerInch;
 
     // Class Members
+    private List<VuforiaTrackable> allTrackables = null;
     private OpenGLMatrix lastLocation = null;
     private VuforiaLocalizer vuforia = null;
 
@@ -86,8 +84,6 @@ public class CyberCatBot {
      * servos, this device is identified using the robot configuration tool in the FTC application.
      */
     WebcamName webcamName = null;
-
-
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
@@ -156,6 +152,12 @@ public class CyberCatBot {
     public ColorSensor getLightSensor() { return lightSensor; }
 
     public Servo getClawServo() { return clawServo; }
+
+    public List<VuforiaTrackable> getAllTrackables() { return allTrackables; }
+
+    public OpenGLMatrix getLastLocation() { return lastLocation; }
+
+    public void setLastLocation(OpenGLMatrix lastLocation) { this.lastLocation = lastLocation; }
 
     public void setVelocity(double velocity)
     {
@@ -295,7 +297,7 @@ public class CyberCatBot {
         frontWallTarget.setName("Front Wall Target");
 
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
-        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+        allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsUltimateGoal);
 
         /**
@@ -364,9 +366,9 @@ public class CyberCatBot {
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT  = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center (Might need to adjust)
-        final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
+        final float CAMERA_FORWARD_DISPLACEMENT  = 9.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center (Might need to adjust)
+        final float CAMERA_VERTICAL_DISPLACEMENT = 5.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
+        final float CAMERA_LEFT_DISPLACEMENT     = -2.0f * mmPerInch;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)

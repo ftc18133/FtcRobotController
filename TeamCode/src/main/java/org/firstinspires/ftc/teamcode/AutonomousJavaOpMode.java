@@ -17,47 +17,40 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
- * It uses the common Pushbot hardware class to define the drive on the robot.
  * The code is structured as a LinearOpMode
  *
  * The code REQUIRES that you DO have encoders on the wheels,
- *   otherwise you would use: PushbotAutoDriveByTime;
  *
- *  This code ALSO requires that the drive Motors have been configured such that a positive
- *  power command moves them forwards, and causes the encoders to count UP.
- *
- *   The desired path in this example is:
- *   - Drive forward for 10 centimeters
- *   - Spin right for 10 centimeters
- *   - Drive Backwards for 10 centimeters
- *
- *  The code is written using a method called: encoderDrive(speed, leftInches, rightInches, timeoutS)
- *  that performs the actual movement.
  *  This methods assumes that each movement is relative to the last stopping place.
  *  There are other ways to perform encoder based moves, but this method is probably the simplest.
  *  This code uses the RUN_TO_POSITION mode to enable the Motor controllers to generate the run profile
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
 @Autonomous  //(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
 //@Disabled
 public class AutonomousJavaOpMode extends LinearOpMode {
 
-    /* Declare OpMode members. */
-    private CyberCatBot catbot;
-    //private ElapsedTime     runtime = new ElapsedTime();
+    // constants ***********************************************************************************
 
     // eg: HD Hex Motor https://docs.revrobotics.com/rev-control-system/sensors/encoders/motor-based-encoders
     private static final double     COUNTS_PER_MOTOR_REV    = 28 ;
     private static final double     DRIVE_GEAR_REDUCTION    = 20 ;     // 20x gear box
     private static final double     WHEEL_DIAMETER_CM   = 7.5 ;     // For figuring circumference
     private static final double     COUNTS_PER_CM         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                            (WHEEL_DIAMETER_CM * 3.1415);
+            (WHEEL_DIAMETER_CM * 3.1415);
 
     private static final double AUTONOMOUS_VELOCITY = 1000;
     private static final double ZERO_VELOCITY = 0;
+
+    private static final int SQUARE_A = 0;
+    private static final int SQUARE_B = 1;
+    private static final int SQUARE_C = 2;
+
+    // instance vars *******************************************************************************
+
+    /* Declare OpMode members. */
+    private CyberCatBot catbot;
+    //private ElapsedTime     runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
@@ -72,20 +65,50 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
 
         // From YouTube video: https://www.youtube.com/watch?v=H3V3A7CgwPU
 
         // Deliver Wobble Goal to correct target zone (15 points)
+        int square = SQUARE_A;
              // pick the correct square to go to based on the number of rings
              // 0 rings == A
              // 1 ring == B
              // 4 rings == C
 
              // drive to the squares based on relative position
+        driveToSquare(square);
+
+        // Disable Tracking when we are done;
+        //targetsUltimateGoal.deactivate();
+
+        // place the wobble goal completely into the square
+
+
+        // Park over launch line (5 points)
+        // stopAtLine();
+
+        // Place ring in low goal (3 points ea.)
+            // drive to goal
+            // place 1 into low goal
+        // Ring launched into mid goal (6 points ea.)
+            // drive to behind launch line
+            // shoot 2 rings into mid goal
+        // Ring launched into high goal (12 points ea.)
+
+        // Knock down Power Shot Target (15 points ea.)
+
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+
+    }
+
+    private void driveToSquare(int square)
+    {
         // check all the trackable targets to see which one (if any) is visible.
-        /*
         boolean targetVisible = false;
-        for (VuforiaTrackable trackable : allTrackables) {
+        for (VuforiaTrackable trackable : catbot.getAllTrackables()) {
             if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
                 telemetry.addData("Visible Target", trackable.getName());
                 targetVisible = true;
@@ -94,7 +117,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
                 // the last time that call was made, or if the trackable is not currently visible.
                 OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
                 if (robotLocationTransform != null) {
-                    lastLocation = robotLocationTransform;
+                    catbot.setLastLocation(robotLocationTransform);
                 }
                 break;
             }
@@ -103,27 +126,29 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Provide feedback as to where the robot is located (if we know).
         if (targetVisible) {
             // express position (translation) of robot in inches.
-            VectorF translation = lastLocation.getTranslation();
+            VectorF translation = catbot.getLastLocation().getTranslation();
             telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                    translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
+                    translation.get(0) / catbot.mmPerInch, translation.get(1) / catbot.mmPerInch, translation.get(2) / catbot.mmPerInch);
 
             // express the rotation of the robot in degrees.
-            Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+            Orientation rotation = Orientation.getOrientation(catbot.getLastLocation(), EXTRINSIC, XYZ, DEGREES);
             telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
         }
         else {
             telemetry.addData("Visible Target", "none");
         }
         telemetry.update();
+
+        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
+        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
+        go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.RIGHT);
+        go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.LEFT);
+
     }
-*/
-    // Disable Tracking when we are done;
-        //targetsUltimateGoal.deactivate();
-             // place the wobble goal completely into the square
 
-        // Park over launch line (5 points)
 
-        /*
+    private void stopAtLine()
+    {
         // Wait for the game to start (driver presses PLAY)
         // Abort this loop is started or stopped.
         while (!(isStarted() || isStopRequested())) {
@@ -146,30 +171,6 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         }
         // Stop all motors
         catbot.setVelocity(0);
-
-         */
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
-        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
-        go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.RIGHT);
-        go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.LEFT);
-
-        // Place ring in low goal (3 points ea.)
-            // drive to goal
-            // place 1 into low goal
-        // Ring launched into mid goal (6 points ea.)
-            // drive to behind launch line
-            // shoot 2 rings into mid goal
-        // Ring launched into high goal (12 points ea.)
-
-        // Knock down Power Shot Target (15 points ea.)
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-
     }
 
     private void go(double velocity,
