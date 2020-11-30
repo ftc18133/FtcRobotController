@@ -91,6 +91,8 @@ public class CyberCatBot {
 
     // PROPERTIES **********************************************************************************
 
+    private HardwareMap hardwareMap;
+
     private DcMotorEx motorL1;
     private DcMotorEx motorL2;
     private DcMotorEx motorR1;
@@ -101,12 +103,12 @@ public class CyberCatBot {
     private DcMotorEx rampMotor;
     private DcMotorEx liftMotor;
     private ColorSensor lightSensor;
-    private HardwareMap hardwareMap;
     private Servo clawServo;
-    // Class Members
+
     private List<VuforiaTrackable> allTrackables;
     private OpenGLMatrix lastLocation;
     private VuforiaLocalizer vuforia;
+    private VuforiaTrackables targetsUltimateGoal;
     private TFObjectDetector tfod;
 
     // METHODS *************************************************************************************
@@ -158,13 +160,15 @@ public class CyberCatBot {
 
     public Servo getClawServo() { return clawServo; }
 
+    public VuforiaTrackables getTargetsUltimateGoal() { return targetsUltimateGoal; }
+
     public List<VuforiaTrackable> getAllTrackables() { return allTrackables; }
 
     public OpenGLMatrix getLastLocation() { return lastLocation; }
 
-    public TFObjectDetector getTfod() { return tfod; }
-
     public void setLastLocation(OpenGLMatrix lastLocation) { this.lastLocation = lastLocation; }
+
+    public TFObjectDetector getTfod() { return tfod; }
 
     public void setVelocity(double velocity)
     {
@@ -292,7 +296,7 @@ public class CyberCatBot {
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
-        VuforiaTrackables targetsUltimateGoal = this.vuforia.loadTrackablesFromAsset("UltimateGoal");
+        this.targetsUltimateGoal = this.vuforia.loadTrackablesFromAsset("UltimateGoal");
         VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
         blueTowerGoalTarget.setName("Blue Tower Goal Target");
         VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);

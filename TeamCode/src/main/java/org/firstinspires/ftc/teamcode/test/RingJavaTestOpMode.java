@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CyberCatBot;
 
 @TeleOp
-@Disabled
+//@Disabled
 public class RingJavaTestOpMode extends LinearOpMode {
     private CyberCatBot catbot;
 
