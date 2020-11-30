@@ -40,6 +40,7 @@ public class CyberCatBot {
     // eg: HD Hex Motor https://docs.revrobotics.com/rev-control-system/sensors/encoders/motor-based-encoders
     public static final double     COUNTS_PER_MOTOR_REV    = 28 ;
     public static final double     DRIVE_GEAR_REDUCTION    = 20 ;     // 20x gear box
+    public static final double     TOTAL_POSITION    = COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION;
     public static final double     WHEEL_DIAMETER_CM   = 7.5 ;     // For figuring circumference
     public static final double     COUNTS_PER_CM         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_CM * 3.1415);
@@ -229,8 +230,8 @@ public class CyberCatBot {
         //rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //rampMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        //liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
-        //ingestMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
+        //liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         lightSensor = hardwareMap.get(ColorSensor.class, "lightSensor");
@@ -400,5 +401,16 @@ public class CyberCatBot {
         tfodParameters.minResultConfidence = 0.8f;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_QUAD, LABEL_SINGLE);
+    }
+
+    public void liftArm(){
+        liftMotor.setPower(0.1);
+        //liftMotor.setTargetPosition(0);
+        //liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    public void lowerArm(){
+        liftMotor.setPower(-0.1);
+        //liftMotor.setTargetPosition((int)(TOTAL_POSITION / 4));
+        //liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }

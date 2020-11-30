@@ -52,25 +52,6 @@ public class MecanumJavaOpMode extends LinearOpMode {
             // Diagonal: Diagonal, top left, top right, bottom right, bottom left: gamepad analog right: same as straight
             // Tankturn: full body turn on center, gamepad left analog: how far you push = speed
 
-            /*
-            if (this.gamepad1.a){
-                catbot.getRingMotor().setPower(1.0);
-            }
-            else if (gamepad1.b){
-                catbot.getRingMotor().setPower(0);
-            }
-            else if (gamepad1.x) {
-                catbot.getIngestMotor().setPower(1);
-            }
-            else if (gamepad1.y) {
-                catbot.getIngestMotor().setPower(0);
-            }
-            else if (LY != 0) {
-                catbot.getRampMotor().setPower(lpwr);
-            }
-            */
-
-
             if (this.gamepad1.a){
                 // set ingest motor on if off
                 if (ingestMotor) {
@@ -126,7 +107,16 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 catbot.getClawServo().setPosition(0.25);
                 telemetry.addData("Servo: ", "Position 0.25");
             }
-            
+            else if (gamepad1.left_bumper) {
+                //catbot.getClawServo().setPosition(0);
+                catbot.liftArm();
+                telemetry.addData("Arm: ", "Arm up");
+            }
+            else if (gamepad1.left_trigger != 0) {
+                catbot.lowerArm();
+                //catbot.getClawServo().setPosition(0.25);
+                telemetry.addData("Arm: ", "Arm down");
+            }
             else if (gamepad1.dpad_left){
                 telemetry.addData("Direction: ", "Tank Left");
                 catbot.setVelocity(-CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY);
