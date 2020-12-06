@@ -190,7 +190,15 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         }
 
         catbot.getTargetsUltimateGoal().deactivate();
-
+        if (catbot.getLastLocation() != null){
+            //this is all starting on the first line, convert to cm
+            //if square A, go forward 80 (203.2 cm)
+            //go right 11.375 (28.8925 cm)
+            //else if square B, go forward 102.75" (260.985 cm)
+            //go left 11.375
+            //else if square C, go forward 125.5" (318.77 cm)
+            //go right 11.375
+        }
         //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
         //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
         //go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.RIGHT);
