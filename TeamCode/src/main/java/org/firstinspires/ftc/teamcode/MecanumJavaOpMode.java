@@ -55,11 +55,11 @@ public class MecanumJavaOpMode extends LinearOpMode {
             if (this.gamepad1.a){
                 // set ingest motor on if off
                 if (ingestMotor) {
-                    catbot.getIngestMotor().setPower(0);
+                    //catbot.getIngestMotor().setPower(0);
                 }
                 else {
                     // set ingest motor off if on
-                    catbot.getIngestMotor().setPower(1);
+                    //catbot.getIngestMotor().setPower(1);
                 }
                 ingestMotor = !ingestMotor;
             }
@@ -104,8 +104,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 telemetry.addData("Servo: ", "Position 0");
             }
             else if (gamepad1.right_trigger != 0) {
-                catbot.getClawServo().setPosition(0.25);
-                telemetry.addData("Servo: ", "Position 0.25");
+                catbot.getClawServo().setPosition(1);
+                telemetry.addData("Servo: ", "Position 1/");
             }
             else if (gamepad1.left_bumper) {
                 //catbot.getClawServo().setPosition(0);
