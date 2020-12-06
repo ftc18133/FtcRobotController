@@ -87,7 +87,10 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 }
                 ringMotor = !ringMotor;
             }
+
             else if (gamepad1.y) {
+                catbot.getLiftMotor().setPower(0);
+                /*
                 if (liftMotor) {
                     // set ring motor on if off
                     catbot.getLiftMotor().setPower(0);
@@ -97,6 +100,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                     catbot.getLiftMotor().setPower(1);
                 }
                 liftMotor = !liftMotor;
+                */
             }
 
             else if (gamepad1.right_bumper) {

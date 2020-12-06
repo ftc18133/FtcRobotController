@@ -404,12 +404,12 @@ public class CyberCatBot {
     }
 
     public void liftArm(){
-        liftMotor.setPower(0.1);
+        liftMotor.setPower(0.2);
         //liftMotor.setTargetPosition(0);
         //liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void lowerArm(){
-        liftMotor.setPower(-0.1);
+        liftMotor.setPower(-0.2);
         //liftMotor.setTargetPosition((int)(TOTAL_POSITION / 4));
         //liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
