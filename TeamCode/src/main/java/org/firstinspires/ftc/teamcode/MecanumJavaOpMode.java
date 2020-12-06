@@ -55,11 +55,11 @@ public class MecanumJavaOpMode extends LinearOpMode {
             if (this.gamepad1.a){
                 // set ingest motor on if off
                 if (ingestMotor) {
-                    //catbot.getIngestMotor().setPower(0);
+                    catbot.getIngestMotor().setPower(0);
                 }
                 else {
                     // set ingest motor off if on
-                    //catbot.getIngestMotor().setPower(1);
+                    catbot.getIngestMotor().setPower(1);
                 }
                 ingestMotor = !ingestMotor;
             }

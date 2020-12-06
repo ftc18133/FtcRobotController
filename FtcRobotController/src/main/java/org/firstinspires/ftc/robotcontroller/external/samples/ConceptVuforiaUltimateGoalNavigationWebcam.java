@@ -29,28 +29,28 @@
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+        import org.firstinspires.ftc.robotcore.external.ClassFactory;
+        import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+        import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+        import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+        import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
+        import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
+        import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
+        import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
+        import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 /**
  * This 2020-2021 OpMode illustrates the basics of using the Vuforia localizer to determine
@@ -250,8 +250,8 @@ public class ConceptVuforiaUltimateGoalNavigationWebcam extends LinearOpMode {
         final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
-                    .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
+                .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
 
         /**  Let all the trackable listeners know where the phone is.  */
         for (VuforiaTrackable trackable : allTrackables) {
