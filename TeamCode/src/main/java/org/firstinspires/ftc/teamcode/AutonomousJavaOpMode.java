@@ -104,9 +104,11 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // TODO: Athena
         // Park over launch line (5 points)
-        // stopAtLine();
+        stopAtLine();
 
     }
+
+
 
     private int detectSquare()
     {
