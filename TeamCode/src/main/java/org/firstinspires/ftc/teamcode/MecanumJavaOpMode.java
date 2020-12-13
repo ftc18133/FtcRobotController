@@ -47,11 +47,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
             lpwr = Math.sqrt(LX*LX + LY*LY);
             velocity = pwr * CyberCatBot.MAX_VELOCITY;
 
-            // straight: Forward, top or bottom, push towards top or bottom (gamepad analog right) speed controlled by how far you push it
-            // strafe: SIDEWAYS, left or right on gamepad analog right: Same as Straight
-            // Diagonal: Diagonal, top left, top right, bottom right, bottom left: gamepad analog right: same as straight
-            // Tankturn: full body turn on center, gamepad left analog: how far you push = speed
-
+            // Ingest IF
             if (this.gamepad1.a){
                 // set ingest motor on if off
                 if (ingestMotor) {
@@ -88,8 +84,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 ringMotor = !ringMotor;
             }
 
-            else if (gamepad1.y) {
-                catbot.getLiftMotor().setPower(0);
+            //else if (gamepad1.y) {
+            //    catbot.getLiftMotor().setPower(0);
                 /*
                 if (liftMotor) {
                     // set ring motor on if off
@@ -101,9 +97,10 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 }
                 liftMotor = !liftMotor;
                 */
-            }
+            //}
 
-            else if (gamepad1.right_bumper) {
+            // Arm IF
+            if (gamepad1.right_bumper) {
                 catbot.getClawServo().setPosition(0);
                 telemetry.addData("Servo: ", "Position 0");
             }
@@ -116,15 +113,23 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 catbot.liftArm();
                 telemetry.addData("Arm: ", "Arm up");
             }
-            else if (! gamepad1.left_bumper && gamepad1.left_trigger == 0) {
-                catbot.getLiftMotor().setPower(0);
-            }
             else if (gamepad1.left_trigger != 0) {
                 catbot.lowerArm();
                 //catbot.getClawServo().setPosition(0.25);
                 telemetry.addData("Arm: ", "Arm down");
             }
-            else if (gamepad1.dpad_left){
+            else //if (! gamepad1.left_bumper && gamepad1.left_trigger == 0)
+            {
+                catbot.getLiftMotor().setPower(0);
+            }
+
+            // straight: Forward, top or bottom, push towards top or bottom (gamepad analog right) speed controlled by how far you push it
+            // strafe: SIDEWAYS, left or right on gamepad analog right: Same as Straight
+            // Diagonal: Diagonal, top left, top right, bottom right, bottom left: gamepad analog right: same as straight
+            // Tankturn: full body turn on center, gamepad left analog: how far you push = speed
+
+            // MOVE IF
+            if (gamepad1.dpad_left){
                 telemetry.addData("Direction: ", "Tank Left");
                 catbot.setVelocity(-CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY);
             }
@@ -132,14 +137,11 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 telemetry.addData("Direction: ", "Tank Right");
                 catbot.setVelocity(CyberCatBot.MAX_VELOCITY, CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY, -CyberCatBot.MAX_VELOCITY);
             }
-
             else if (RX == 0 && RY == 0) {
                 catbot.setVelocity(0);
                 telemetry.addData("Direction: ", "No Move");
             }
-
             else if (RX == 0 && RY != 0) {
-
                 if(RY>0){
                     telemetry.addData("Direction: ", "Forward");
                 }else {
@@ -149,7 +151,6 @@ public class MecanumJavaOpMode extends LinearOpMode {
 
                 catbot.setVelocity(velocity);
             }
-
             else if (RY == 0 && RX != 0) {
 
                 if (RX<0){
@@ -173,7 +174,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
 
                 catbot.setVelocity(velocity,0,0, velocity);
 
-            } else {
+            } else if ((RX < 0 && RY > 0) || (RX > 0 && RY < 0)) {
                 telemetry.addData("Direction: ", "Diagonal Left");
 
                 // opposite, switch power

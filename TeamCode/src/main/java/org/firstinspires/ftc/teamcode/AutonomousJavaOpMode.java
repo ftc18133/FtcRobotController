@@ -29,8 +29,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
  *  This code uses the RUN_TO_POSITION mode to enable the Motor controllers to generate the run profile
  */
 
-@Autonomous  //(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
-//@Disabled
+@Autonomous
 public class AutonomousJavaOpMode extends LinearOpMode {
 
     // constants ***********************************************************************************
@@ -38,9 +37,10 @@ public class AutonomousJavaOpMode extends LinearOpMode {
     // eg: HD Hex Motor https://docs.revrobotics.com/rev-control-system/sensors/encoders/motor-based-encoders
     private static final double     COUNTS_PER_MOTOR_REV    = 28 ;
     private static final double     DRIVE_GEAR_REDUCTION    = 20 ;     // 20x gear box
-    private static final double     WHEEL_DIAMETER_CM   = 7.5 ;     // For figuring circumference
-    private static final double     COUNTS_PER_CM         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    private static final double     WHEEL_DIAMETER_CM       = 7.5 ;     // For figuring circumference
+    private static final double     COUNTS_PER_CM           = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_CM * 3.1415);
+    private static final double     INCHES_TO_CM            = 2.54;
 
     private static final double AUTONOMOUS_VELOCITY = 1000;
     private static final double ZERO_VELOCITY = 0;
@@ -84,14 +84,15 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         telemetry.addData("Square", square);
         telemetry.update();
 
+
+        // TODO: Athena
         // drive to the squares based on relative position
         driveToSquare(square);
 
+        // TODO: Ellie
         // place the wobble goal completely into the square
 
-        // Park over launch line (5 points)
-        // stopAtLine();
-
+        // TODO: Charlotte
         // Place ring in low goal (3 points ea.)
             // drive to goal
             // place 1 into low goal
@@ -99,8 +100,11 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             // drive to behind launch line
             // shoot 2 rings into mid goal
         // Ring launched into high goal (12 points ea.)
-
         // Knock down Power Shot Target (15 points ea.)
+
+        // TODO: Athena
+        // Park over launch line (5 points)
+        // stopAtLine();
 
     }
 
@@ -152,6 +156,27 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
     private void driveToSquare(int square)
     {
+        //getCatbotLocation();
+
+        if (catbot.getLastLocation() != null){
+            // use INCHES_TO_CM constant to convert
+            //this is all starting on the first line, convert to cm
+            //if square A, go forward 80 (203.2 cm)
+            //go right 11.375 (28.8925 cm)
+            //else if square B, go forward 102.75" (260.985 cm)
+            //go left 11.375
+            //else if square C, go forward 125.5" (318.77 cm)
+            //go right 11.375
+        }
+        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
+        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
+        //go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.RIGHT);
+        //go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.LEFT);
+
+    }
+
+    private void getCatbotLocation()
+    {
         catbot.getTargetsUltimateGoal().activate();
 
         // check all the trackable targets to see which one (if any) is visible.
@@ -190,22 +215,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         }
 
         catbot.getTargetsUltimateGoal().deactivate();
-        if (catbot.getLastLocation() != null){
-            //this is all starting on the first line, convert to cm
-            //if square A, go forward 80 (203.2 cm)
-            //go right 11.375 (28.8925 cm)
-            //else if square B, go forward 102.75" (260.985 cm)
-            //go left 11.375
-            //else if square C, go forward 125.5" (318.77 cm)
-            //go right 11.375
-        }
-        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
-        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
-        //go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.RIGHT);
-        //go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.LEFT);
-
     }
-
 
     private void stopAtLine()
     {
