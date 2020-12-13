@@ -91,6 +91,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // TODO: Ellie
         // place the wobble goal completely into the square
+        placeWobbleGoal ();
 
         // TODO: Charlotte
         // Place ring in low goal (3 points ea.)
@@ -335,5 +336,13 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             catbot.setMotorMode(DcMotor.RunMode.RUN_USING_ENCODER);
             sleep(250);   // optional pause after each move
         }
+    }
+    private void placeWobbleGoal () {
+        //TODO: for one second
+        catbot.lowerArm();
+        //open claw
+        catbot.getClawServo().setPosition(1);
+        //TODO: for one second
+        catbot.liftArm();
     }
 }
