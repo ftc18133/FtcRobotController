@@ -93,6 +93,8 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // place the wobble goal completely into the square
 
         // TODO: Charlotte
+        // Move robot behind line
+        moveAndFireRings(square);
         // Place ring in low goal (3 points ea.)
             // drive to goal
             // place 1 into low goal
@@ -334,6 +336,24 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             // Turn off RUN_TO_POSITION
             catbot.setMotorMode(DcMotor.RunMode.RUN_USING_ENCODER);
             sleep(250);   // optional pause after each move
+
         }
+
+
     }
+
+ private void moveAndFireRings(int square){
+     if (square == SQUARE_A) {
+         go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.LEFT);
+         go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+     }
+     else if (square == SQUARE_B){
+         go(AUTONOMOUS_VELOCITY, 2*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+     }
+     else {
+         go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.LEFT);
+         go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+     }
+ }
+
 }
