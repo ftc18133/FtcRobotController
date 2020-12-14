@@ -91,6 +91,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // TODO: Ellie
         // place the wobble goal completely into the square
+        placeWobbleGoal ();
 
         // TODO: Charlotte
         // Move robot behind line
@@ -106,7 +107,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // TODO: Athena
         // Park over launch line (5 points)
-        // stopAtLine();
+        stopAtLine();
 
     }
 
@@ -161,19 +162,20 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         //getCatbotLocation();
 
         if (catbot.getLastLocation() != null){
-            // use INCHES_TO_CM constant to convert
-            //this is all starting on the first line, convert to cm
-            //if square A, go forward 80 (203.2 cm)
-            //go right 11.375 (28.8925 cm)
-            //else if square B, go forward 102.75" (260.985 cm)
-            //go left 11.375
-            //else if square C, go forward 125.5" (318.77 cm)
-            //go right 11.375
+            if (square == SQUARE_A) {
+                go(AUTONOMOUS_VELOCITY, 80*INCHES_TO_CM, CyberCatBot.FORWARD);
+                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.RIGHT);
+            }
+            else if (square == SQUARE_B) {
+                go(AUTONOMOUS_VELOCITY, 102.75*INCHES_TO_CM, CyberCatBot.FORWARD);
+                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT);
+            }
+            else if (square == SQUARE_C) {
+                go(AUTONOMOUS_VELOCITY, 125.5*INCHES_TO_CM, CyberCatBot.FORWARD);
+                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.RIGHT);
+            }
+
         }
-        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.FORWARD);
-        //go(AUTONOMOUS_VELOCITY, 40, CyberCatBot.BACKWARD);
-        //go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.RIGHT);
-        //go(AUTONOMOUS_VELOCITY, 20, CyberCatBot.LEFT);
 
     }
 
@@ -356,4 +358,12 @@ public class AutonomousJavaOpMode extends LinearOpMode {
      }
  }
 
+    private void placeWobbleGoal () {
+        //TODO: for one second
+        catbot.lowerArm();
+        //open claw
+        catbot.getClawServo().setPosition(1);
+        //TODO: for one second
+        catbot.liftArm();
+    }
 }
