@@ -85,17 +85,18 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         telemetry.update();
 
 
-        // TODO: Athena
         // drive to the squares based on relative position
         driveToSquare(square);
 
-        // TODO: Ellie
         // place the wobble goal completely into the square
         placeWobbleGoal ();
 
-        // TODO: Charlotte
         // Move robot behind line
-        moveAndFireRings(square);
+        moveToLaunch(square);
+
+        // TODO: Athena
+        // fireRings();
+
         // Place ring in low goal (3 points ea.)
             // drive to goal
             // place 1 into low goal
@@ -344,7 +345,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
     }
 
- private void moveAndFireRings(int square){
+ private void moveToLaunch(int square){
      if (square == SQUARE_A) {
          go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.LEFT);
          go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
