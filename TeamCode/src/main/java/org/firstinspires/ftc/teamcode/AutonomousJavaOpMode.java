@@ -93,8 +93,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // Move robot behind line
         moveToLaunch(square);
-
-        // TODO: Athena
+        
         fireRings();
 
         // Place ring in low goal (3 points ea.)
