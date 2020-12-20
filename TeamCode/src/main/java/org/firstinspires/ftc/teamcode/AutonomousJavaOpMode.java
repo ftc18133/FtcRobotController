@@ -373,11 +373,13 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         catbot.getRampMotor().setPower(0);
     }
     private void placeWobbleGoal () {
-        //TODO: for one second (Ellie)
         catbot.lowerArm();
+        wait(1000);
+        catbot.stopArm();
         //open claw
         catbot.getClawServo().setPosition(1);
-        //TODO: for one second (Ellie)
         catbot.liftArm();
+        wait(1000);
+        catbot.stopArm();
     }
 }
