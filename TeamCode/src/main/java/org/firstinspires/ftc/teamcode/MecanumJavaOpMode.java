@@ -120,7 +120,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
             }
             else //if (! gamepad1.left_bumper && gamepad1.left_trigger == 0)
             {
-                catbot.getLiftMotor().setPower(0);
+                catbot.stopArm ();
+
             }
 
             // straight: Forward, top or bottom, push towards top or bottom (gamepad analog right) speed controlled by how far you push it

@@ -413,4 +413,7 @@ public class CyberCatBot {
         //liftMotor.setTargetPosition((int)(TOTAL_POSITION / 4));
         //liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+    public void stopArm () {
+        getLiftMotor().setPower(0);
+    }
 }
