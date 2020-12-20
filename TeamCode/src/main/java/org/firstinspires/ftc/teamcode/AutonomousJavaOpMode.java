@@ -95,7 +95,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         moveToLaunch(square);
 
         // TODO: Athena
-        // fireRings();
+        fireRings();
 
         // Place ring in low goal (3 points ea.)
             // drive to goal
@@ -360,7 +360,18 @@ public class AutonomousJavaOpMode extends LinearOpMode {
              go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
      }
+    private void fireRings() {
 
+        catbot.getRampMotor().setPower(1);
+        catbot.getRingMotor1().setPower(1);
+        catbot.getRingMotor2().setPower(1);
+        try {
+            wait(5000);
+        } catch (InterruptedException e) {};
+        catbot.getRingMotor1().setPower(0);
+        catbot.getRingMotor2().setPower(0);
+        catbot.getRampMotor().setPower(0);
+    }
     private void placeWobbleGoal () {
         catbot.lowerArm();
         try {
