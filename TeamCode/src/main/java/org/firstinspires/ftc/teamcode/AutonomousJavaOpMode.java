@@ -106,7 +106,6 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Ring launched into high goal (12 points ea.)
         // Knock down Power Shot Target (15 points ea.)
 
-        // TODO: Athena
         // Park over launch line (5 points)
         stopAtLine();
 
@@ -283,7 +282,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             }
             else if (direction == CyberCatBot.LEFT)
             {
-
+                // TODO: Charlotte add code to go left
             }
             else
             {
@@ -345,26 +344,26 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
     }
 
- private void moveToLaunch(int square){
-     if (square == SQUARE_A) {
-         go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.LEFT);
-         go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+     private void moveToLaunch(int square){
+         if (square == SQUARE_A) {
+             go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.LEFT);
+             go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+         }
+         else if (square == SQUARE_B){
+             go(AUTONOMOUS_VELOCITY, 2*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+         }
+         else {
+             go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.LEFT);
+             go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+         }
      }
-     else if (square == SQUARE_B){
-         go(AUTONOMOUS_VELOCITY, 2*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
-     }
-     else {
-         go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.LEFT);
-         go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
-     }
- }
 
     private void placeWobbleGoal () {
-        //TODO: for one second
+        //TODO: for one second (Ellie)
         catbot.lowerArm();
         //open claw
         catbot.getClawServo().setPosition(1);
-        //TODO: for one second
+        //TODO: for one second (Ellie)
         catbot.liftArm();
     }
 }
