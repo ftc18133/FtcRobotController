@@ -222,9 +222,9 @@ public class CyberCatBot {
         ringMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ringMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // = hardwareMap.get(DcMotorEx.class, "ingestMotor");
+        ingestMotor = hardwareMap.get(DcMotorEx.class, "ingestMotor");
         //ingestMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //]/ingestMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ingestMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //rampMotor = hardwareMap.get(DcMotorEx.class, "rampMotor");
         rampServo = hardwareMap.get(CRServo.class, "rampServo");

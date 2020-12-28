@@ -37,23 +37,26 @@ public class MecanumJavaOpMode extends LinearOpMode {
             velocity = pwr * CyberCatBot.MAX_VELOCITY;
 
             // Ingest IF
-            if (this.gamepad1.x || this.gamepad1.b){
+            if (this.gamepad1.x || this.gamepad1.b || this.gamepad1.a){
                 if (this.gamepad1.x)
                     catbot.getRampServo().setPower(1.0);
                 if (this.gamepad1.b) {
                     catbot.getRingMotor1().setPower(1);
                     catbot.getRingMotor2().setPower(1);
                 }
+                if (this.gamepad1.a) {
+                    catbot.getIngestMotor().setPower(1);
+                }
             }
             /*
             else if (this.gamepad1.a){
                 // set ingest motor on if off
                 if (ingestMotor) {
-                    //catbot.getIngestMotor().setPower(0);
+                    catbot.getIngestMotor().setPower(0);
                 }
                 else {
                     // set ingest motor off if on
-                    //catbot.getIngestMotor().setPower(1);
+                    catbot.getIngestMotor().setPower(1);
                 }
                 ingestMotor = !ingestMotor;
             }
@@ -62,6 +65,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 catbot.getRampServo().setPower(0);
                 catbot.getRingMotor1().setPower(0);
                 catbot.getRingMotor2().setPower(0);
+                catbot.getIngestMotor().setPower(0);
             }
 
             // Arm IF
