@@ -361,7 +361,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
      }
     private void fireRings() {
 
-        catbot.getRampMotor().setPower(1);
+        catbot.getRampServo().setPower(1);
         catbot.getRingMotor1().setPower(1);
         catbot.getRingMotor2().setPower(1);
         try {
@@ -369,7 +369,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         } catch (InterruptedException e) {};
         catbot.getRingMotor1().setPower(0);
         catbot.getRingMotor2().setPower(0);
-        catbot.getRampMotor().setPower(0);
+        catbot.getRampServo().setPower(0);
     }
     private void placeWobbleGoal () {
         catbot.lowerArm();

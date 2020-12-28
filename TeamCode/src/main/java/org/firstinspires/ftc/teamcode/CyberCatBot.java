@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -101,7 +102,7 @@ public class CyberCatBot {
     private DcMotorEx ringMotor1;
     private DcMotorEx ringMotor2;
     private DcMotorEx ingestMotor;
-    private DcMotorEx rampMotor;
+    private CRServo rampServo;
     private DcMotorEx liftMotor;
     private ColorSensor lightSensor;
     private Servo clawServo;
@@ -153,7 +154,7 @@ public class CyberCatBot {
 
     public DcMotorEx getIngestMotor() { return ingestMotor; }
 
-    public DcMotorEx getRampMotor() { return rampMotor;}
+    public CRServo getRampServo() { return rampServo;}
 
     public DcMotorEx getLiftMotor() { return liftMotor;}
 
@@ -225,8 +226,9 @@ public class CyberCatBot {
         //ingestMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //]/ingestMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        rampMotor = hardwareMap.get(DcMotorEx.class, "rampMotor");
-        rampMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //rampMotor = hardwareMap.get(DcMotorEx.class, "rampMotor");
+        rampServo = hardwareMap.get(CRServo.class, "rampServo");
+        //rampMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         //rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //rampMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 

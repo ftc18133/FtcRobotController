@@ -43,11 +43,11 @@ public class RingJavaTestOpMode extends LinearOpMode {
             else if (gamepad1.b){
                 if (rampMotor) {
                     // set ramp motor on if off
-                    catbot.getRampMotor().setPower(0);
+                    catbot.getRampServo().setPower(0);
                 }
                     else {
                     // set ramp motor off if on
-                    catbot.getRampMotor().setPower(1);
+                    catbot.getRampServo().setPower(1);
                 }
                 rampMotor = !rampMotor;
             }
@@ -79,7 +79,7 @@ public class RingJavaTestOpMode extends LinearOpMode {
             telemetry.addData("Status", "Running");
 
             //telemetry.addData("Ingest Motor", catbot.getRingMotor().getPower());
-            telemetry.addData("Ramp Motor", catbot.getRampMotor().getPower());
+            telemetry.addData("Ramp Motor", catbot.getRampServo().getPower());
             telemetry.addData("Ring Motor 1", catbot.getRingMotor1().getPower());
             telemetry.addData("Ring Motor 2", catbot.getRingMotor2().getPower());
 

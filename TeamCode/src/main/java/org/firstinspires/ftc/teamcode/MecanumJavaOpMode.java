@@ -34,7 +34,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
         double LY = 0;
 
         boolean ingestMotor = false;
-        boolean rampMotor = false;
+        boolean rampServo = false;
         boolean ringMotor = false;
         boolean liftMotor = false;
 
@@ -48,6 +48,20 @@ public class MecanumJavaOpMode extends LinearOpMode {
             velocity = pwr * CyberCatBot.MAX_VELOCITY;
 
             // Ingest IF
+            if (this.gamepad1.x || this.gamepad1.b){
+                if (this.gamepad1.x)
+                    catbot.getRampServo().setPower(1.0);
+                if (this.gamepad1.b) {
+                    catbot.getRingMotor1().setPower(1);
+                    catbot.getRingMotor2().setPower(1);
+                }
+            }
+            else {
+                catbot.getRampServo().setPower(0);
+                catbot.getRingMotor1().setPower(0);
+                catbot.getRingMotor2().setPower(0);
+            }
+            /*
             if (this.gamepad1.a){
                 // set ingest motor on if off
                 if (ingestMotor) {
@@ -60,15 +74,15 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 ingestMotor = !ingestMotor;
             }
             else if (gamepad1.b){
-                if (rampMotor) {
+                if (rampServo) {
                     // set ramp motor on if off
-                    catbot.getRampMotor().setPower(0);
+                    catbot.getRampServo().setPower(0);
                 }
                 else {
                     // set ramp motor off if on
-                    catbot.getRampMotor().setPower(1);
+                    catbot.getRampServo().setPower(1);
                 }
-                rampMotor = !rampMotor;
+                rampServo = !rampServo;
             }
             else if (gamepad1.x) {
                 if (ringMotor) {
@@ -83,7 +97,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 }
                 ringMotor = !ringMotor;
             }
-
+            */
             //else if (gamepad1.y) {
             //    catbot.getLiftMotor().setPower(0);
                 /*
@@ -195,7 +209,7 @@ public class MecanumJavaOpMode extends LinearOpMode {
             telemetry.addData("Motor Velocity R1", catbot.getMotorR1().getVelocity());
             telemetry.addData("Motor Velocity R2", catbot.getMotorR2().getVelocity());
 
-            telemetry.addData("Ramp Motor", catbot.getRampMotor().getPower());
+            telemetry.addData("Ramp Servo", catbot.getRampServo().getPower());
             telemetry.addData("Ring Motor 1", catbot.getRingMotor1().getPower());
             telemetry.addData("Ring Motor 2", catbot.getRingMotor2().getPower());
 
