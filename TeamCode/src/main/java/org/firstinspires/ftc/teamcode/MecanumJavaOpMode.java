@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import java.lang.Math;
 
@@ -34,9 +32,6 @@ public class MecanumJavaOpMode extends LinearOpMode {
         double LY = 0;
 
         boolean ingestMotor = false;
-        boolean rampServo = false;
-        boolean ringMotor = false;
-        boolean liftMotor = false;
 
         while (opModeIsActive()) {
             RX = this.gamepad1.right_stick_x;
@@ -56,13 +51,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
                     catbot.getRingMotor2().setPower(1);
                 }
             }
-            else {
-                catbot.getRampServo().setPower(0);
-                catbot.getRingMotor1().setPower(0);
-                catbot.getRingMotor2().setPower(0);
-            }
             /*
-            if (this.gamepad1.a){
+            else if (this.gamepad1.a){
                 // set ingest motor on if off
                 if (ingestMotor) {
                     //catbot.getIngestMotor().setPower(0);
@@ -73,45 +63,12 @@ public class MecanumJavaOpMode extends LinearOpMode {
                 }
                 ingestMotor = !ingestMotor;
             }
-            else if (gamepad1.b){
-                if (rampServo) {
-                    // set ramp motor on if off
-                    catbot.getRampServo().setPower(0);
-                }
-                else {
-                    // set ramp motor off if on
-                    catbot.getRampServo().setPower(1);
-                }
-                rampServo = !rampServo;
+             */
+            else {
+                catbot.getRampServo().setPower(0);
+                catbot.getRingMotor1().setPower(0);
+                catbot.getRingMotor2().setPower(0);
             }
-            else if (gamepad1.x) {
-                if (ringMotor) {
-                    // set ring motor on if off
-                    catbot.getRingMotor1().setPower(0);
-                    catbot.getRingMotor2().setPower(0);
-                }
-                else {
-                    // set ring motor off if on
-                    catbot.getRingMotor1().setPower(1);
-                    catbot.getRingMotor2().setPower(1);
-                }
-                ringMotor = !ringMotor;
-            }
-            */
-            //else if (gamepad1.y) {
-            //    catbot.getLiftMotor().setPower(0);
-                /*
-                if (liftMotor) {
-                    // set ring motor on if off
-                    catbot.getLiftMotor().setPower(0);
-                }
-                else {
-                    // set ring motor off if on
-                    catbot.getLiftMotor().setPower(1);
-                }
-                liftMotor = !liftMotor;
-                */
-            //}
 
             // Arm IF
             if (gamepad1.right_bumper) {
@@ -120,22 +77,18 @@ public class MecanumJavaOpMode extends LinearOpMode {
             }
             else if (gamepad1.right_trigger != 0) {
                 catbot.getClawServo().setPosition(1);
-                telemetry.addData("Servo: ", "Position 1/");
+                telemetry.addData("Servo: ", "Position 1");
             }
             else if (gamepad1.left_bumper) {
-                //catbot.getClawServo().setPosition(0);
                 catbot.liftArm();
                 telemetry.addData("Arm: ", "Arm up");
             }
             else if (gamepad1.left_trigger != 0) {
                 catbot.lowerArm();
-                //catbot.getClawServo().setPosition(0.25);
                 telemetry.addData("Arm: ", "Arm down");
             }
-            else //if (! gamepad1.left_bumper && gamepad1.left_trigger == 0)
-            {
+            else {
                 catbot.stopArm ();
-
             }
 
             // straight: Forward, top or bottom, push towards top or bottom (gamepad analog right) speed controlled by how far you push it
@@ -176,7 +129,6 @@ public class MecanumJavaOpMode extends LinearOpMode {
                     telemetry.addData("Direction: ", "Strafe Right");
                 }
 
-                //catbot.setVelocity(velocity, -velocity, -velocity, velocity);
                 catbot.strafeVelocity(velocity);
 
             } else if ((RX < 0 && RY < 0) || (RX > 0 && RY > 0)) {
