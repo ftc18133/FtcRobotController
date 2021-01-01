@@ -159,7 +159,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
     {
         //getCatbotLocation();
 
-        if (catbot.getLastLocation() != null){
+        //if (catbot.getLastLocation() != null){
             if (square == SQUARE_A) {
                 go(AUTONOMOUS_VELOCITY, 80*INCHES_TO_CM, CyberCatBot.FORWARD);
                 go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.RIGHT);
@@ -173,7 +173,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
                 go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.RIGHT);
             }
 
-        }
+        //}
 
     }
 
