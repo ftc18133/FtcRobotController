@@ -84,29 +84,28 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         telemetry.addData("Square", square);
         telemetry.update();
 
-
         // drive to the squares based on relative position
         driveToSquare(square);
 
         // place the wobble goal completely into the square
-        placeWobbleGoal ();
+        // placeWobbleGoal();
 
         // Move robot behind line
-        moveToLaunch(square);
-        
-        fireRings();
+        // moveToLaunch(square);
 
         // Place ring in low goal (3 points ea.)
-            // drive to goal
-            // place 1 into low goal
+        // drive to goal
+        // place 1 into low goal
         // Ring launched into mid goal (6 points ea.)
-            // drive to behind launch line
-            // shoot 2 rings into mid goal
+        // drive to behind launch line
+        // shoot 2 rings into mid goal
         // Ring launched into high goal (12 points ea.)
         // Knock down Power Shot Target (15 points ea.)
 
+        // fireRings();
+
         // Park over launch line (5 points)
-        stopAtLine();
+        // stopAtLine();
 
     }
 
