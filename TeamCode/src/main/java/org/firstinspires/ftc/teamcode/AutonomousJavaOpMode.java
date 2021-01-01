@@ -42,12 +42,13 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             (WHEEL_DIAMETER_CM * 3.1415);
     private static final double     INCHES_TO_CM            = 2.54;
 
-    private static final double AUTONOMOUS_VELOCITY = 1000;
+    private static final double AUTONOMOUS_VELOCITY = 1500;
     private static final double ZERO_VELOCITY = 0;
 
     private static final int SQUARE_A = 0;
     private static final int SQUARE_B = 1;
     private static final int SQUARE_C = 2;
+    private static final double SQUARE_WIDTH = 22.75;
 
     // instance vars *******************************************************************************
 
@@ -56,7 +57,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
     //private ElapsedTime     runtime = new ElapsedTime();
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
 
         /*
          * Initialize the drive system variables.
@@ -79,19 +80,22 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // 1 ring == B
         // 4 rings == C
 
+        // TODO: faster more accurate square detection
         int square = detectSquare();
 
         telemetry.addData("Square", square);
         telemetry.update();
 
         // drive to the squares based on relative position
+        // TODO: Sideways gets stuck
         driveToSquare(square);
 
+        // TODO: Fix Wobble Goal Placement direction
         // place the wobble goal completely into the square
         // placeWobbleGoal();
 
         // Move robot behind line
-        // moveToLaunch(square);
+        moveToLaunch(square);
 
         // Place ring in low goal (3 points ea.)
         // drive to goal
@@ -102,10 +106,11 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Ring launched into high goal (12 points ea.)
         // Knock down Power Shot Target (15 points ea.)
 
-        // fireRings();
+        // TODO: Rings falling off ramp
+        fireRings();
 
         // Park over launch line (5 points)
-        // stopAtLine();
+        //stopAtLine();
 
     }
 
@@ -161,16 +166,16 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         //if (catbot.getLastLocation() != null){
             if (square == SQUARE_A) {
-                go(AUTONOMOUS_VELOCITY, 80*INCHES_TO_CM, CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.RIGHT);
+                go(AUTONOMOUS_VELOCITY, (80*INCHES_TO_CM) - (0.75*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
+                go(AUTONOMOUS_VELOCITY, 1.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT);
             }
             else if (square == SQUARE_B) {
                 go(AUTONOMOUS_VELOCITY, 102.75*INCHES_TO_CM, CyberCatBot.FORWARD);
                 go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT);
             }
             else if (square == SQUARE_C) {
+                go(AUTONOMOUS_VELOCITY, 0.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT);
                 go(AUTONOMOUS_VELOCITY, 125.5*INCHES_TO_CM, CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.RIGHT);
             }
 
         //}
@@ -363,31 +368,19 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         catbot.getRampServo().setPower(1);
         catbot.getRingMotor1().setPower(1);
         catbot.getRingMotor2().setPower(1);
-        try {
-            wait(5000);
-        } catch (InterruptedException e) {};
+        sleep(7000);
         catbot.getRingMotor1().setPower(0);
         catbot.getRingMotor2().setPower(0);
         catbot.getRampServo().setPower(0);
     }
     private void placeWobbleGoal () {
         catbot.lowerArm();
-        try {
-            wait (1000);
-        }
-        catch (InterruptedException e) {
-
-        }
+        sleep (1000);
         catbot.stopArm();
         //open claw
         catbot.getClawServo().setPosition(1);
         catbot.liftArm();
-        try {
-            wait (1000);
-        }
-        catch (InterruptedException e) {
-
-        }
+        sleep (1000);
         catbot.stopArm();
     }
 }
