@@ -327,8 +327,8 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                    (catbot.getMotorL1().isBusy() && catbot.getMotorR1().isBusy() &&
-                     catbot.getMotorL2().isBusy() && catbot.getMotorR2().isBusy())) {
+                    (catbot.getMotorL1().isBusy() || catbot.getMotorR1().isBusy() ||
+                     catbot.getMotorL2().isBusy() || catbot.getMotorR2().isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d : %7d : %7d : %7d",
