@@ -80,14 +80,14 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // 1 ring == B
         // 4 rings == C
 
-        // TODO: faster more accurate square detection
+
         int square = detectSquare();
 
         telemetry.addData("Square", square);
         telemetry.update();
 
         // drive to the squares based on relative position
-        // TODO: Sideways gets stuck
+
         driveToSquare(square);
 
         // TODO: Fix Wobble Goal Placement direction
