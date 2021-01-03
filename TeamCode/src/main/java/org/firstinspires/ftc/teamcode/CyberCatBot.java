@@ -37,6 +37,7 @@ public class CyberCatBot {
     public static final double POSITION_CONSTANT = 5.0;
     public static final int WHITE_THRESHOLD = 500;  // spans between 0.1 - 0.5 from dark to light
     public static final double MAX_VELOCITY = 3060;
+    public static final double HALF_VELOCITY = MAX_VELOCITY / 2;
 
     // eg: HD Hex Motor https://docs.revrobotics.com/rev-control-system/sensors/encoders/motor-based-encoders
     public static final double     COUNTS_PER_MOTOR_REV    = 28 ;
