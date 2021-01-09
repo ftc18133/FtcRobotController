@@ -330,7 +330,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             // TODO: CHARLOTTE check runtime for elapsed time
             while (opModeIsActive() &&
-                    (timeout > 0) &&
+                    (timeout == -1) &&
                     (catbot.getMotorL1().isBusy() && catbot.getMotorR1().isBusy() &&
                             catbot.getMotorL2().isBusy() && catbot.getMotorR2().isBusy())) {
 
