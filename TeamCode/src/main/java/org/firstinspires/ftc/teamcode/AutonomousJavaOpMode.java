@@ -310,7 +310,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             catbot.setMotorMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
-            // TODO: CHARLOTTE Reset runtime
+            runtime.reset();
             if (direction == CyberCatBot.FORWARD || direction == CyberCatBot.BACKWARD) {
                 catbot.setVelocity(velocity);
             }
@@ -330,7 +330,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             // TODO: CHARLOTTE check runtime for elapsed time
             while (opModeIsActive() &&
-                    (timeout == -1) &&
+                    (timeout == -1 || runtime.seconds() < timeout) &&
                     (catbot.getMotorL1().isBusy() && catbot.getMotorR1().isBusy() &&
                             catbot.getMotorL2().isBusy() && catbot.getMotorR2().isBusy())) {
 
@@ -365,14 +365,14 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
      private void moveToLaunch(int square){
          if (square == SQUARE_A) {
-             go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.LEFT);
+             go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.LEFT, 0.5);
              go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
          else if (square == SQUARE_B){
              go(AUTONOMOUS_VELOCITY, 2*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
          else {
-             go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.LEFT);
+             go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.LEFT, 0.5);
              go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
      }
