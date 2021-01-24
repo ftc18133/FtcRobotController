@@ -79,11 +79,11 @@ public class MecanumJavaOpMode extends LinearOpMode {
             }
             else if (gamepad1.left_bumper) {
                 catbot.liftArm();
-                telemetry.addData("Arm: ", "Arm up");
+                telemetry.addData("Arm: ", "Arm down");
             }
             else if (gamepad1.left_trigger != 0) {
                 catbot.lowerArm();
-                telemetry.addData("Arm: ", "Arm down");
+                telemetry.addData("Arm: ", "Arm up");
             }
             else {
                 catbot.stopArm ();
