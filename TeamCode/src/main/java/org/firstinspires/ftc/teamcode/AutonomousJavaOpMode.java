@@ -170,15 +170,15 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         //if (catbot.getLastLocation() != null){
             if (square == SQUARE_A) {
                 go(AUTONOMOUS_VELOCITY, (80*INCHES_TO_CM) - (1.25*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 1.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 0.5);
+                go(AUTONOMOUS_VELOCITY, 1.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.0);
             }
             else if (square == SQUARE_B) {
                 go(AUTONOMOUS_VELOCITY, 102.75*INCHES_TO_CM - (0.5*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT, 0.5);
+                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
             }
             else if (square == SQUARE_C) {
                 go(AUTONOMOUS_VELOCITY, 125.5*INCHES_TO_CM - (0.5*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 0.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 0.5);
+                go(AUTONOMOUS_VELOCITY, 0.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.0);
             }
 
         //}
@@ -365,15 +365,15 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
      private void moveToLaunch(int square){
          if (square == SQUARE_A) {
-             go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.LEFT, 0.5);
-             go(AUTONOMOUS_VELOCITY, 22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
+             go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
          else if (square == SQUARE_B){
-             go(AUTONOMOUS_VELOCITY, 2*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, 2 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
          else {
-             go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.LEFT, 0.5);
-             go(AUTONOMOUS_VELOCITY, 3*22.75*INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, 3* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
+             go(AUTONOMOUS_VELOCITY, 3* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
      }
     private void fireRings() {
@@ -381,7 +381,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         catbot.getRampServo().setPower(1);
         catbot.getRingMotor1().setPower(1);
         catbot.getRingMotor2().setPower(1);
-        sleep(10000);
+        sleep(13000);
         catbot.getRingMotor1().setPower(0);
         catbot.getRingMotor2().setPower(0);
         catbot.getRampServo().setPower(0);
