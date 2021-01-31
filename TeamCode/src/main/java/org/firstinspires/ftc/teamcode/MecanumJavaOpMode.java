@@ -31,8 +31,8 @@ public class MecanumJavaOpMode extends LinearOpMode {
         boolean ingestMotor = false;
 
         while (opModeIsActive()) {
-            RX = this.gamepad1.left_stick_x;
-            RY = -this.gamepad1.left_stick_y;// opposite what you think
+            RX = this.gamepad1.right_stick_x;
+            RY = -this.gamepad1.right_stick_y;// opposite what you think
             pwr = Math.sqrt(RX*RX + RY*RY);
             velocity = pwr * CyberCatBot.MAX_VELOCITY;
 
