@@ -110,7 +110,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         fireRings();
 
         // Park over launch line (5 points)
-        //stopAtLine();
+        stopAtLine();
 
     }
 
@@ -381,7 +381,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         catbot.getRampServo().setPower(1);
         catbot.getRingMotor1().setPower(1);
         catbot.getRingMotor2().setPower(1);
-        sleep(7000);
+        sleep(10000);
         catbot.getRingMotor1().setPower(0);
         catbot.getRingMotor2().setPower(0);
         catbot.getRampServo().setPower(0);
