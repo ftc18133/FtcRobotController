@@ -38,9 +38,9 @@ public class MecanumJavaOpMode extends LinearOpMode {
 
             // Ingest IF
             if (this.gamepad1.x || this.gamepad1.b || this.gamepad1.a){
-                if (this.gamepad1.x)
+                if (this.gamepad1.b)
                     catbot.getRampServo().setPower(1.0);
-                if (this.gamepad1.b) {
+                if (this.gamepad1.y) {
                     catbot.getRingMotor1().setPower(1);
                     catbot.getRingMotor2().setPower(1);
                 }
