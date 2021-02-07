@@ -90,7 +90,6 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         driveToSquare(square);
 
-        // TODO: Fix Wobble Goal Placement direction
         // place the wobble goal completely into the square
         // placeWobbleGoal();
 
@@ -328,7 +327,6 @@ public class AutonomousJavaOpMode extends LinearOpMode {
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            // TODO: CHARLOTTE check runtime for elapsed time
             while (opModeIsActive() &&
                     (timeout == -1 || runtime.seconds() < timeout) &&
                     (catbot.getMotorL1().isBusy() && catbot.getMotorR1().isBusy() &&
