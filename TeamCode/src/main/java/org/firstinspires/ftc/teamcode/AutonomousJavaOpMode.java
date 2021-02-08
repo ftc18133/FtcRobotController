@@ -172,16 +172,16 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         //if (catbot.getLastLocation() != null){
             if (square == SQUARE_A) {
-                go(AUTONOMOUS_VELOCITY, (80*INCHES_TO_CM) - (1.25*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 1.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.0);
+                go(AUTONOMOUS_VELOCITY, (80*INCHES_TO_CM) - (2.0*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
+                go(AUTONOMOUS_VELOCITY, 2.0*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
             }
             else if (square == SQUARE_B) {
                 go(AUTONOMOUS_VELOCITY, 102.75*INCHES_TO_CM - (0.5*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
+                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
             }
             else if (square == SQUARE_C) {
                 go(AUTONOMOUS_VELOCITY, 125.5*INCHES_TO_CM - (0.5*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 0.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.0);
+                go(AUTONOMOUS_VELOCITY, 0.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
             }
 
         //}
