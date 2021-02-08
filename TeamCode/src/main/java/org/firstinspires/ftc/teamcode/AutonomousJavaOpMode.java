@@ -95,7 +95,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         driveToSquare(square);
 
         // place the wobble goal completely into the square
-        // placeWobbleGoal();
+        placeWobbleGoal();
 
         // Move robot behind line
         moveToLaunch(square);
