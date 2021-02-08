@@ -70,6 +70,10 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
+        catbot.getClawServo().setPosition(1);
+        sleep(2000);
+        catbot.getClawServo().setPosition(0);
+        telemetry.addData("Servo: ", "Position 0");
         waitForStart();
 
         // From YouTube video: https://www.youtube.com/watch?v=H3V3A7CgwPU
