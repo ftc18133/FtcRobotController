@@ -92,6 +92,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // drive to the squares based on relative position
 
+        square = SQUARE_B;
         driveToSquare(square);
 
         // place the wobble goal completely into the square
@@ -172,12 +173,12 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         //if (catbot.getLastLocation() != null){
             if (square == SQUARE_A) {
-                go(AUTONOMOUS_VELOCITY, (80*INCHES_TO_CM) - (2.0*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
+                go(AUTONOMOUS_VELOCITY, (80.0*INCHES_TO_CM) - (2.0*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
                 go(AUTONOMOUS_VELOCITY, 2.0*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
             }
             else if (square == SQUARE_B) {
-                go(AUTONOMOUS_VELOCITY, 102.75*INCHES_TO_CM - (0.5*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
+                go(AUTONOMOUS_VELOCITY, (80.0*INCHES_TO_CM) - (1.0*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
+                //go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
             }
             else if (square == SQUARE_C) {
                 go(AUTONOMOUS_VELOCITY, 125.5*INCHES_TO_CM - (0.5*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
@@ -371,7 +372,8 @@ public class AutonomousJavaOpMode extends LinearOpMode {
              go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
          else if (square == SQUARE_B){
-             go(AUTONOMOUS_VELOCITY, 2 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.RIGHT, 1.0);
          }
          else {
              go(AUTONOMOUS_VELOCITY, 3* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
