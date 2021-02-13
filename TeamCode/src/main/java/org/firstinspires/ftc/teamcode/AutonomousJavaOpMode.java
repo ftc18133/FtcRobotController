@@ -92,7 +92,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
         // drive to the squares based on relative position
 
-        square = SQUARE_C;
+        //square = SQUARE_C;
         driveToSquare(square);
 
         // place the wobble goal completely into the square
@@ -122,6 +122,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
     {
         int square = SQUARE_A;
         go(AUTONOMOUS_VELOCITY, 0.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.FORWARD);
+        go(AUTONOMOUS_VELOCITY, 0.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.0);
 
 
         if (catbot.getTfod() != null) {
@@ -163,7 +164,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         if (catbot.getTfod() != null) {
             catbot.getTfod().shutdown();
         }
-
+        go(AUTONOMOUS_VELOCITY, 0.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
         return square;
     }
 
