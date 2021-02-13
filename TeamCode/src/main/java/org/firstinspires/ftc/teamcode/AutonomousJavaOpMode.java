@@ -111,7 +111,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Knock down Power Shot Target (15 points ea.)
 
         // TODO: Rings falling off ramp
-        fireRings();
+        fireRings(square);
 
         // Park over launch line (5 points)
         stopAtLine();
@@ -381,12 +381,19 @@ public class AutonomousJavaOpMode extends LinearOpMode {
              go(AUTONOMOUS_VELOCITY, 2.5* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
      }
-    private void fireRings() {
+    private void fireRings(int square) {
 
         catbot.getRampServo().setPower(1);
         catbot.getRingMotor1().setPower(1);
         catbot.getRingMotor2().setPower(1);
-        sleep(13000);
+        int sleepsec = -1;
+        if (square == SQUARE_A)
+            sleepsec = 13000;
+        else if (square == SQUARE_B)
+            sleepsec = 10000;
+        else
+            sleepsec = 7000;
+        sleep(sleepsec);
         catbot.getRingMotor1().setPower(0);
         catbot.getRingMotor2().setPower(0);
         catbot.getRampServo().setPower(0);
