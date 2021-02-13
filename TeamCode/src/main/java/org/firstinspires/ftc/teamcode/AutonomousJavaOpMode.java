@@ -370,7 +370,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
      private void moveToLaunch(int square){
          if (square == SQUARE_A) {
              go(AUTONOMOUS_VELOCITY, SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
-             go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.BACKWARD);
+             //go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
          else if (square == SQUARE_B){
              go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
@@ -378,7 +378,7 @@ public class AutonomousJavaOpMode extends LinearOpMode {
          }
          else {
              go(AUTONOMOUS_VELOCITY,  SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
-             go(AUTONOMOUS_VELOCITY, 2.5* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, 1.5* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
      }
     private void fireRings(int square) {
