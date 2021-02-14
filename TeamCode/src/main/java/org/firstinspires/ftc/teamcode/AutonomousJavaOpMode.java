@@ -101,6 +101,10 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Move robot behind line
         moveToLaunch(square);
 
+        getCatbotLocation();
+
+        sleep(10000);
+
         // Place ring in low goal (3 points ea.)
         // drive to goal
         // place 1 into low goal
@@ -111,10 +115,10 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Knock down Power Shot Target (15 points ea.)
 
         // TODO: Rings falling off ramp
-        fireRings(square);
+        //fireRings(square);
 
         // Park over launch line (5 points)
-        stopAtLine();
+        //stopAtLine();
 
     }
 
