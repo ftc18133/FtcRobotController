@@ -154,6 +154,8 @@ public class AutonomousJavaOpMode extends LinearOpMode {
                                 break;
                             }
                         }
+                        if(square==SQUARE_B||square==SQUARE_C)
+                            break;
                         telemetry.update();
                     }
                 }
