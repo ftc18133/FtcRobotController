@@ -373,12 +373,12 @@ public class AutonomousJavaOpMode extends LinearOpMode {
              //go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
          else if (square == SQUARE_B){
-             go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, 1.0 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
              go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.RIGHT, 1.0);
          }
          else {
              go(AUTONOMOUS_VELOCITY,  SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
-             go(AUTONOMOUS_VELOCITY, 1.5* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, 2.0* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
      }
     private void fireRings(int square) {
@@ -388,9 +388,9 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         catbot.getRingMotor2().setPower(1);
         int sleepsec = -1;
         if (square == SQUARE_A)
-            sleepsec = 13000;
+            sleepsec = 12000;
         else if (square == SQUARE_B)
-            sleepsec = 10000;
+            sleepsec = 11000;
         else
             sleepsec = 7000;
         sleep(sleepsec);
