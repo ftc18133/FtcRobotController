@@ -101,9 +101,8 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Move robot behind line
         moveToLaunch(square);
 
-        getCatbotLocation();
-
-        sleep(10000);
+        // getCatbotLocation();
+        // sleep(10000);
 
         // Place ring in low goal (3 points ea.)
         // drive to goal
@@ -115,11 +114,10 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         // Knock down Power Shot Target (15 points ea.)
 
         // TODO: Rings falling off ramp
-        //fireRings(square);
+        fireRings(square);
 
         // Park over launch line (5 points)
-        //stopAtLine();
-
+        stopAtLine();
     }
 
     private int detectSquare()
@@ -181,15 +179,14 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         //if (catbot.getLastLocation() != null){
             if (square == SQUARE_A) {
                 go(AUTONOMOUS_VELOCITY, (80.0*INCHES_TO_CM) - (2.0*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 2.0*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
+                go(AUTONOMOUS_VELOCITY, 1.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
             }
             else if (square == SQUARE_B) {
                 go(AUTONOMOUS_VELOCITY, (80.0*INCHES_TO_CM) - (1.0*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                //go(AUTONOMOUS_VELOCITY, 11.375*INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
             }
             else if (square == SQUARE_C) {
                 go(AUTONOMOUS_VELOCITY, 80*INCHES_TO_CM, CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 2.0*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
+                go(AUTONOMOUS_VELOCITY, 1.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
             }
 
         //}
@@ -375,16 +372,15 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
      private void moveToLaunch(int square){
          if (square == SQUARE_A) {
-             go(AUTONOMOUS_VELOCITY, SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
-             //go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.BACKWARD);
+             go(AUTONOMOUS_VELOCITY, SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
          }
          else if (square == SQUARE_B){
+             go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
              go(AUTONOMOUS_VELOCITY, 1.0 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
-             go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.RIGHT, 1.0);
          }
-         else {
-             go(AUTONOMOUS_VELOCITY,  SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.LEFT, 1.0);
-             go(AUTONOMOUS_VELOCITY, 2.0* SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
+         else if (square == SQUARE_C) {
+             go(AUTONOMOUS_VELOCITY,  SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
+             go(AUTONOMOUS_VELOCITY, 2.0 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
      }
     private void fireRings(int square) {
