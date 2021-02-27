@@ -179,14 +179,14 @@ public class AutonomousJavaOpMode extends LinearOpMode {
         //if (catbot.getLastLocation() != null){
             if (square == SQUARE_A) {
                 go(AUTONOMOUS_VELOCITY, (80.0*INCHES_TO_CM) - (2.0*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 1.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
+                go(AUTONOMOUS_VELOCITY, SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
             }
             else if (square == SQUARE_B) {
                 go(AUTONOMOUS_VELOCITY, (80.0*INCHES_TO_CM) - (1.0*SQUARE_WIDTH*INCHES_TO_CM), CyberCatBot.FORWARD);
             }
             else if (square == SQUARE_C) {
                 go(AUTONOMOUS_VELOCITY, 80*INCHES_TO_CM, CyberCatBot.FORWARD);
-                go(AUTONOMOUS_VELOCITY, 1.5*SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
+                go(AUTONOMOUS_VELOCITY, SQUARE_WIDTH*INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
             }
 
         //}
@@ -372,14 +372,14 @@ public class AutonomousJavaOpMode extends LinearOpMode {
 
      private void moveToLaunch(int square){
          if (square == SQUARE_A) {
-             go(AUTONOMOUS_VELOCITY, SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
+             go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH * INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
          }
          else if (square == SQUARE_B){
              go(AUTONOMOUS_VELOCITY, 0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.RIGHT, 1.5);
              go(AUTONOMOUS_VELOCITY, 1.0 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
          else if (square == SQUARE_C) {
-             go(AUTONOMOUS_VELOCITY,  SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
+             go(AUTONOMOUS_VELOCITY,  0.5 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.LEFT, 1.5);
              go(AUTONOMOUS_VELOCITY, 2.0 * SQUARE_WIDTH *INCHES_TO_CM, CyberCatBot.BACKWARD);
          }
      }
